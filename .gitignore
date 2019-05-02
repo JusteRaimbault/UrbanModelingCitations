@@ -1,0 +1,6 @@
+.DS_Store
+.Rhistory
+launchdb
+.tor_tmp
+*.log
+
