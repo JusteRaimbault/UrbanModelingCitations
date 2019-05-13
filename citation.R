@@ -5,20 +5,93 @@ library(igraph)
 
 source('functions.R')
 
-edges <- read.csv('data/spatialmicrosim_depth2_links.csv',sep=";",header=F,colClasses = c('character','character'))
-nodes <- as.tbl(read.csv('data/spatialmicrosim_depth2.csv',sep=";",header=F,stringsAsFactors = F,colClasses = c('character','character','character')))
+#edges <- read.csv('data/spatialmicrosim_depth2_links.csv',sep=";",header=F,colClasses = c('character','character'))
+#nodes <- as.tbl(read.csv('data/spatialmicrosim_depth2.csv',sep=";",header=F,stringsAsFactors = F,colClasses = c('character','character','character')))
 
-names(nodes)<-c("title","id","year")
+edges <- read.csv('exports/corpus_conso-urbmod-spatialmicrosim_all_20190512_links.csv',sep=";",header=F,colClasses = c('character','character'))
+nodes <- as.tbl(read.csv('exports/corpus_conso-urbmod-spatialmicrosim_all_20190512.csv',sep=";",stringsAsFactors = F,colClasses = c('character','character','character','character','character','character','character')))
+
+names(nodes)<-c("id","title","year","depth","priority","horizontalDepth","citingFilled")
+nodes$priority = as.numeric(nodes$priority)
+nodes$depth = as.numeric(nodes$depth)
+
+# nchar(c(nodes[nodes$depth==2,"horizontalDepth"]))
 
 elabels = unique(c(edges$V1,edges$V2))
 empty=rep("",length(which(!elabels%in%nodes$id)))
 nodes=rbind(nodes,data.frame(title=empty,id=elabels[!elabels%in%nodes$id],year=empty))#,abstract=empty,authors=empty))
 
-citation <- graph_from_data_frame(edges,vertices = nodes[,c(2,1,3)])#3:7)])
+citation <- graph_from_data_frame(edges,vertices = nodes) #nodes[,c(2,1,3)])#3:7)])
 components(citation)$csize
 
 citation = induced_subgraph(citation,which(components(citation)$membership==1))
-# IGRAPH 4865d41 DN-- 146774 210341
+
+# ensure hdepth are consistent
+
+#summary(nchar(V(citation)$horizontalDepth[V(citation)$depth==2]))
+newprio = sapply(V(citation)$horizontalDepth[V(citation)$depth==2],function(s){min(as.numeric(sapply(strsplit(s,",")[[1]],function(ss){strsplit(ss,":")[[1]][2]})))})
+V(citation)$priority[V(citation)$depth==2]=newprio
+summary(V(citation)$priority[V(citation)$depth==2])
+
+V(citation)$priority[V(citation)$depth<2]=NA
+V(citation)$horizontalDepth[V(citation)$depth<2]=NA
+
+# propagate priority for easier sensitivity analysis ?
+#for(d in 1:0){
+#  prios = c()
+#  for(v in V(citation)[V(citation)$depth==d]){prios[V(citation)$name[v]]=min(neighbors(citation,v,"out")$priority)}
+#}
+
+
+# csv export
+citationcore = induced_subgraph(citation,which(degree(citation)>1))
+citationcorehigher = citationcore
+while(length(which(degree(citationcorehigher)==1))>0){citationcorehigher = induced_subgraph(citationcorehigher,which(degree(citationcorehigher)>1))}
+
+#write_graph(citationcorehigher,file='processed/core_full_edges.csv',format = 'edgelist')
+
+write.csv(data.frame(
+from = tail_of(citationcorehigher,E(citationcorehigher))$name,
+to = head_of(citationcorehigher,E(citationcorehigher))$name
+),file=
+  #'processed/core_full_edges.csv',row.names = F,quote=F
+  'processed/core_hdepth100_edges.csv',row.names = F,quote=F
+)
+
+write.csv(data.frame(
+  id=V(citationcorehigher)$name,
+  title=V(citationcorehigher)$title,
+  year=V(citationcorehigher)$year,
+  depth=V(citationcorehigher)$depth,
+  priority=V(citationcorehigher)$priority,
+  horizontalDepth=V(citationcorehigher)$horizontalDepth,
+  citingFilled=V(citationcorehigher)$citingFilled
+)
+  ,#file='processed/core_full_nodes.csv',row.names = F
+file='processed/core_hdepth100_nodes.csv',row.names = F
+)
+
+# depth 100
+d0names=V(citation)$name[V(citation)$depth==2&V(citation)$priority<=100]
+d1 = adjacent_vertices(citation,V(citation)[V(citation)$depth==2&V(citation)$priority<=100])
+d1names = unique(unlist(sapply(d1,function(l){l$name})))
+d2 = adjacent_vertices(citation,V(citation)[d1names],mode='in')
+d2names = unique(unlist(sapply(d2,function(l){l$name})))
+
+d100 = induced_subgraph(citation,V(citation)[unique(c(d0names,d1names,d2names))])
+
+citationcore = induced_subgraph(d100,which(degree(d100)>1))
+citationcorehigher = citationcore
+while(length(which(degree(citationcorehigher)==1))>0){citationcorehigher = induced_subgraph(citationcorehigher,which(degree(citationcorehigher)>1))}
+
+# % missing ? ~ 500 remaining
+length(which(V(citation)$depth>0)) # 500/140454
+length(which(V(citationcorehigher)$depth>0)) #500/39537 -> around 1%
+
+
+
+######
+# for gml export
 
 V(citation)$reduced_title = sapply(V(citation)$title,function(s){paste0(substr(s,1,50),"...")})
 V(citation)$reduced_title = ifelse(degree(citation)>20,V(citation)$reduced_title,rep("",vcount(citation)))
