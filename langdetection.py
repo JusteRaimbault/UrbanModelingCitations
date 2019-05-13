@@ -1,10 +1,11 @@
 import nltk
 import sys
 import utils
-from langdetect import detect_langs
+#from langdetect import detect_langs
+from polyglot.detect import Detector
 
 # ensure determinsitic results for langdetect
-langdetect.DetectorFactory.seed = 0
+# langdetect.DetectorFactory.seed = 0
 
 STOPWORDS_DICT = dict()
 for lang in nltk.corpus.stopwords.fileids():
@@ -14,8 +15,19 @@ def get_language_nltk(text):
     words = set(nltk.wordpunct_tokenize(text.lower()))
     return max(((lang, len(words & stopwords)) for lang, stopwords in STOPWORDS_DICT.items()), key = lambda x: x[1])[0]
 
-def get_language(text):
-    return(detect_langs(text))
+#def get_language(text):
+#    return(detect_langs(text))
+
+def get_language(text,idref):
+    try:
+        if len(text) < 10:
+            return('NA')
+        else :
+            detector=Detector(text)
+            return(detector.language.name)
+    except Exception as e:
+        print(text+" - "+idref)
+        return('NA')
 
 
 
@@ -26,13 +38,19 @@ def find_refs_languages(db,maxpriority,outfile):
     for ref in refs :
         id = ref['id']
         #language = get_language_nltk(ref['title'])
-        lang_probas = get_language(ref['title'])
-	res.append(id+";"+language)
-    f = open(outfile,'w')
-    for row in res:
-        f.write(row+'\n')
-    f.close()
+        language = get_language(ref['title'],ref['id'])
+        res.append(id+";"+language)
+    if len(outfile)==0 :
+        print(res)
+    else :
+        f = open(outfile,'w')
+        for row in res:
+            f.write(row+'\n')
+        f.close()
+
+
 
 #find_refs_languages('urbmod',int(sys.argv[1]),sys.argv[2])
 find_refs_languages(sys.argv[1],int(sys.argv[2]),sys.argv[3])
+#find_refs_languages('urbmod',3,'')
 

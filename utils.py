@@ -11,5 +11,8 @@ def get_references(db):
 
 def get_references(db,maxpriority):
     database = mongo[db]
-    refs = database['references'].find({'priority':{'$lt':maxpriority}})
+    if maxpriority > 0:
+        refs = database['references'].find({'priority':{'$lt':maxpriority}})
+    else:
+        refs = database['references'].find()
     return(refs)
