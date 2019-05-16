@@ -115,13 +115,14 @@ for(kw in kws){
 }
 
 
-save(citation,'processed/citation_tmp.RData')
+#save(citation,'processed/citation_tmp.RData')
+load('processed/citation_tmp.RData')
 
 
-#' # csv export
-#' citationcore = induced_subgraph(citation,which(degree(citation)>1))
-#' citationcorehigher = citationcore
-#' while(length(which(degree(citationcorehigher)==1))>0){citationcorehigher = induced_subgraph(citationcorehigher,which(degree(citationcorehigher)>1))}
+# csv export
+citationcore = induced_subgraph(citation,which(degree(citation)>1))
+citationcorehigher = citationcore
+while(length(which(degree(citationcorehigher)==1))>0){citationcorehigher = induced_subgraph(citationcorehigher,which(degree(citationcorehigher)>1))}
 #' 
 #' #write_graph(citationcorehigher,file='processed/core_full_edges.csv',format = 'edgelist')
 #' 
