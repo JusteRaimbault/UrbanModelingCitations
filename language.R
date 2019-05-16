@@ -43,6 +43,6 @@ g = ggplot(lang%>%group_by(lang) %>% summarize(count=n()),aes(x="",y=count,fill=
 g+geom_bar(stat='identity')+coord_polar("y", start=0)+xlab("")+ylab("")+scale_fill_discrete(name='Language')+stdtheme
 ggsave('results/languages.png',width=17,height = 15,units='cm')
 
-
+table(lang$lang)
 
 

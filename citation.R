@@ -11,6 +11,8 @@ source('functions.R')
 edges <- read.csv('exports/corpus_conso-urbmod-spatialmicrosim_all_20190512_links.csv',sep=";",header=F,colClasses = c('character','character'))
 nodes <- as.tbl(read.csv('exports/corpus_conso-urbmod-spatialmicrosim_all_20190512.csv',sep=";",stringsAsFactors = F,colClasses = c('character','character','character','character','character','character','character')))
 
+# grep("spatialmicrosim",nodes$horizontalDepth,fixed=T)
+
 names(nodes)<-c("id","title","year","depth","priority","horizontalDepth","citingFilled")
 nodes$priority = as.numeric(nodes$priority)
 nodes$depth = as.numeric(nodes$depth)
@@ -22,25 +24,69 @@ empty=rep("",length(which(!elabels%in%nodes$id)))
 nodes=rbind(nodes,data.frame(title=empty,id=elabels[!elabels%in%nodes$id],year=empty))#,abstract=empty,authors=empty))
 
 citation <- graph_from_data_frame(edges,vertices = nodes) #nodes[,c(2,1,3)])#3:7)])
-components(citation)$csize
+
+#components(citation)$csize
 
 citation = induced_subgraph(citation,which(components(citation)$membership==1))
+
+#grep("spatialmicrosim",V(citation)$horizontalDepth,fixed=T)
 
 # ensure hdepth are consistent
 
 #summary(nchar(V(citation)$horizontalDepth[V(citation)$depth==2]))
-newprio = sapply(V(citation)$horizontalDepth[V(citation)$depth==2],function(s){min(as.numeric(sapply(strsplit(s,",")[[1]],function(ss){strsplit(ss,":")[[1]][2]})))})
-V(citation)$priority[V(citation)$depth==2]=newprio
-summary(V(citation)$priority[V(citation)$depth==2])
-
-V(citation)$priority[V(citation)$depth<2]=NA
-V(citation)$horizontalDepth[V(citation)$depth<2]=NA
+#newprio = sapply(V(citation)$horizontalDepth[V(citation)$depth==2],function(s){min(as.numeric(sapply(strsplit(s,",")[[1]],function(ss){strsplit(ss,":")[[1]][2]})))})
+#V(citation)$priority[V(citation)$depth==2]=newprio
+#summary(V(citation)$priority[V(citation)$depth==2])
+#V(citation)$priority[V(citation)$depth<2]=NA
+#V(citation)$horizontalDepth[V(citation)$depth<2]=NA
 
 # propagate priority for easier sensitivity analysis ?
 #for(d in 1:0){
 #  prios = c()
 #  for(v in V(citation)[V(citation)$depth==d]){prios[V(citation)$name[v]]=min(neighbors(citation,v,"out")$priority)}
 #}
+
+# construct attributes for each hdepth kws
+splitted = sapply(unique(V(citation)$horizontalDepth[!is.na(V(citation)$horizontalDepth)]),function(s){
+  sapply(strsplit(s,",")[[1]],
+         function(ss){strsplit(ss,":")[[1]][1]})
+})
+kws = unique(unlist(splitted))
+
+depths =sapply(V(citation)$horizontalDepth,function(s){
+  if (is.na(s)){return(NA)}else{
+  res = sapply(strsplit(s,",")[[1]],
+         function(ss){
+           spl = strsplit(ss,":")[[1]]
+           res = c()
+           res[[spl[1]]]=as.numeric(spl[2])
+           return(res)
+           })
+  return(res)
+  }
+})
+
+prios = sapply(depths,function(l){if(length(l)==0){return(NA)}else{return(min(unlist(l)))}})
+
+V(citation)$priority <- prios
+
+for(kw in kws){
+  #sapply(depths,function(d){grep(paste0('.',kw),names(d),fixed=T)})
+  vertex_attr(citation,kw) <- sapply(depths,function(d){
+    if(length(d)==0){return(NA)}else{
+    inclkw =sapply(strsplit(names(d),".",fixed = T),function(s){s[2]})#[[1]][2]
+    return(ifelse(kw %in% inclkw,d[kw==inclkw],NA))
+    }
+  })
+}
+
+#propagate the horizdepth attributes
+adjacency = get.adjacency(citation,sparse=T)
+
+for(kw in kws){
+  show(kw)
+  show(length(which(!is.na(get.vertex.attribute(citation,kw))&V(citation)$depth==2)))
+}
 
 
 # csv export
@@ -114,6 +160,12 @@ citationcorehigher = citationcore
 while(length(which(degree(citationcorehigher)==1))>0){citationcorehigher = induced_subgraph(citationcorehigher,which(degree(citationcorehigher)>1))}
 write_graph(citationcorehigher,file='processed/core_hdepth100.gml',format = 'gml')
 
+
+
+
+
+
+##### old stuff
 
 # get network at level 1
 initialcorpus = read.csv('data/spatialmicrosim_corpus_spatial+microsimulation.csv',sep=";",colClasses = c('character','character','character'))
