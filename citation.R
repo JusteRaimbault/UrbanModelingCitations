@@ -91,6 +91,14 @@ for(kw in kws){
   })
 }
 
+
+# work on core only
+citationcore = induced_subgraph(citation,which(degree(citation)>1))
+citationcorehigher = citationcore
+while(length(which(degree(citationcorehigher)==1))>0){citationcorehigher = induced_subgraph(citationcorehigher,which(degree(citationcorehigher)>1))}
+
+citation = citationcorehigher
+
 #propagate the horizdepth attributes
 adjacency = get.adjacency(citation,sparse=T)
 
@@ -101,32 +109,26 @@ for(kw in kws){
   stop = F
   while(!stop){
     tofill = is.na(get.vertex.attribute(citation,kw))
-    show(paste0('to fill : ',length(which(tofill))))
     a = adjacency[tofill,!tofill]
-    inds = which(rowSums(a)>0)
-    show(paste0('length(inds) = ',length(inds)))
-    inds = inds[1:min(c(length(inds),1000))]
+    inds = rowSums(a)>0
     a = a[inds,]
-    show(paste0('nrow = ',nrow(a)))
+    show(nrow(a))
     if(nrow(a)==0){stop=T}else {
       #apply(a,1,function(r){min(r*get.vertex.attribute(citation,kw)[!tofill])})
       a = a%*%Diagonal(x=get.vertex.attribute(citation,kw)[!tofill])
       a[a==0]=Inf
-      newvals = apply(a,1,min)
-      citation = set.vertex.attribute(citation,kw,V(citation)[which(tofill)[inds]],newvals)
+      citation = set.vertex.attribute(citation,kw,V(citation)[which(inds)],apply(a,1,min))
     }
   }
 }
 
 
-#save(citation,'processed/citation_tmp.RData')
-load('processed/citation_tmp.RData')
+save(citation,'processed/citation_tmp.RData')
+#load('processed/citation_tmp.RData')
 
 
 # csv export
-citationcore = induced_subgraph(citation,which(degree(citation)>1))
-citationcorehigher = citationcore
-while(length(which(degree(citationcorehigher)==1))>0){citationcorehigher = induced_subgraph(citationcorehigher,which(degree(citationcorehigher)>1))}
+
 #' 
 #' #write_graph(citationcorehigher,file='processed/core_full_edges.csv',format = 'edgelist')
 #' 
