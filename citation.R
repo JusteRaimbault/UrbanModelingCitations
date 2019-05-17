@@ -109,21 +109,26 @@ for(kw in kws){
   stop = F
   while(!stop){
     tofill = is.na(get.vertex.attribute(citation,kw))
+    show(paste0('to fill : ',length(which(tofill))))
     a = adjacency[tofill,!tofill]
-    inds = rowSums(a)>0
+    inds = which(rowSums(a)>0)
+    show(paste0('length(inds) = ',length(inds)))
+    if(length(inds)==0){stop=T}else {
+    inds = inds[1:min(c(length(inds),1000))]
     a = a[inds,]
-    show(nrow(a))
-    if(nrow(a)==0){stop=T}else {
+    show(paste0('nrow = ',nrow(a)))
+    #if(nrow(a)==0){stop=T}else {
       #apply(a,1,function(r){min(r*get.vertex.attribute(citation,kw)[!tofill])})
       a = a%*%Diagonal(x=get.vertex.attribute(citation,kw)[!tofill])
       a[a==0]=Inf
-      citation = set.vertex.attribute(citation,kw,V(citation)[which(inds)],apply(a,1,min))
+      newvals = apply(a,1,min)
+      citation = set.vertex.attribute(citation,kw,V(citation)[which(tofill)[inds]],newvals)
     }
   }
 }
 
 
-save(citation,'processed/citation_tmp.RData')
+save(citation,file='processed/citation_tmp.RData')
 #load('processed/citation_tmp.RData')
 
 
