@@ -109,54 +109,75 @@ for(kw in kws){
   stop = F
   while(!stop){
     tofill = is.na(get.vertex.attribute(citation,kw))
-    show(paste0('to fill : ',length(which(tofill))))
     a = adjacency[tofill,!tofill]
-    inds = which(rowSums(a)>0)
-    show(paste0('length(inds) = ',length(inds)))
-    if(length(inds)==0){stop=T}else {
-    inds = inds[1:min(c(length(inds),1000))]
+    inds = rowSums(a)>0
     a = a[inds,]
-    show(paste0('nrow = ',nrow(a)))
-    #if(nrow(a)==0){stop=T}else {
+    show(nrow(a))
+    if(nrow(a)==0){stop=T}else {
       #apply(a,1,function(r){min(r*get.vertex.attribute(citation,kw)[!tofill])})
       a = a%*%Diagonal(x=get.vertex.attribute(citation,kw)[!tofill])
       a[a==0]=Inf
-      newvals = apply(a,1,min)
-      citation = set.vertex.attribute(citation,kw,V(citation)[which(tofill)[inds]],newvals)
+      citation = set.vertex.attribute(citation,kw,V(citation)[which(inds)],apply(a,1,min))
+      # if in the end the min is inf, means that horzdepth was zero -> shall replace Inf by zeros
     }
   }
 }
 
+# recompute numerical hdepth
+# Note JR 20190529 : done with the saved citation graph - similar to execute after remote computation of clean graph 
+
+# replace infty by 0
+for(kw in kws){v=get.vertex.attribute(citation,kw);v[v==Inf]=0;citation=set.vertex.attribute(citation,kw,V(citation),v)}
+# construct :
+# data.frame(V(citation)$microsim,V(citation)$transportmicrosimmodel,V(citation)$microsimmodel,V(citation)$urbanmicrosimmodel,V(citation)$spatialmicrosimmodel)
+hdepthdf = data.frame(get.vertex.attribute(citation,kws[1]))
+for(kw in kws[2:length(kws)]){hdepthdf = cbind(hdepthdf,get.vertex.attribute(citation,kw))}
+#summary(apply(hdepthdf,1,function(r){min(r,na.rm = T)}))
+V(citation)$numHorizontalDepth = apply(hdepthdf,1,function(r){min(r,na.rm = T)})
 
 save(citation,file='processed/citation_tmp.RData')
-#load('processed/citation_tmp.RData')
+load('processed/citation_tmp.RData')
 
 
 # csv export
 
-#' 
-#' #write_graph(citationcorehigher,file='processed/core_full_edges.csv',format = 'edgelist')
-#' 
-#' write.csv(data.frame(
-#' from = tail_of(citationcorehigher,E(citationcorehigher))$name,
-#' to = head_of(citationcorehigher,E(citationcorehigher))$name
-#' ),file=
-#'   #'processed/core_full_edges.csv',row.names = F,quote=F
-#'   'processed/core_hdepth100_edges.csv',row.names = F,quote=F
-#' )
-#' 
-#' write.csv(data.frame(
-#'   id=V(citationcorehigher)$name,
-#'   title=V(citationcorehigher)$title,
-#'   year=V(citationcorehigher)$year,
-#'   depth=V(citationcorehigher)$depth,
-#'   priority=V(citationcorehigher)$priority,
-#'   horizontalDepth=V(citationcorehigher)$horizontalDepth,
-#'   citingFilled=V(citationcorehigher)$citingFilled
-#' )
-#'   ,#file='processed/core_full_nodes.csv',row.names = F
-#' file='processed/core_hdepth100_nodes.csv',row.names = F
-#' )
+write.csv(data.frame(
+ from = tail_of(citation,E(citation))$name,
+ to = head_of(citation,E(citation))$name
+ ),file=
+   'processed/core_full_edges.csv',row.names = F,quote=F
+)
+
+nodesdf = data.frame(id=V(citation)$name,title=V(citation)$title,year=V(citation)$year,depth=V(citation)$depth,horizontalDepth=V(citation)$numHorizontalDepth
+  #priority=V(citation)$priority,
+  #horizontalDepth=V(citation)$horizontalDepth, # not needed - temporary variable
+  #,citingFilled=V(citation)$citingFilled
+)
+for(kw in kws){nodesdf = cbind(nodesdf,get.vertex.attribute(citation,kw))}
+names(nodesdf)[6:length(nodesdf)]=kws
+
+write.csv(
+  nodesdf
+   ,file='processed/core_full_nodes.csv',row.names = F
+)
+ 
+ 
+#### filter graph h depth 100
+# in filtered graph if exists one attribute such that d <= 100 <=> min(d_attrs) <= 100
+# -> can filter on horizontalDepth
+citfiltered = induced_subgraph(citation,which(V(citation)$numHorizontalDepth<=100))
+
+write.csv(data.frame(from = tail_of(citfiltered,E(citfiltered))$name,to = head_of(citfiltered,E(citfiltered))$name),file=
+  'processed/core_hdepth100_nodes.csv',row.names = F,quote=F
+)
+
+nodesdf = data.frame(id=V(citfiltered)$name,title=V(citfiltered)$title,year=V(citfiltered)$year,depth=V(citfiltered)$depth,horizontalDepth=V(citfiltered)$numHorizontalDepth)
+for(kw in kws){nodesdf = cbind(nodesdf,get.vertex.attribute(citfiltered,kw))}
+names(nodesdf)[6:length(nodesdf)]=kws
+write.csv(nodesdf,file='processed/core_hdepth100_edges.csv',row.names = F)
+
+
+
 #' 
 #' # depth 100
 #' d0names=V(citation)$name[V(citation)$depth==2&V(citation)$priority<=100]
