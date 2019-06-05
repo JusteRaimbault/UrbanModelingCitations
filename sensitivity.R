@@ -55,9 +55,10 @@ citnw <- graph_from_data_frame(edges,vertices = nodes)
 
 #nwProperties(citnw)
 
+hdvals = c(1:10,seq(20,150,10),seq(200,950,50))
+
 res = data.frame()
-for(hd in 
-    c(1:10,seq(20,150,10),seq(200,950,50))
+for(hd in hdvals
     #seq(1,100,1)
     ){
   show(hd)
@@ -123,12 +124,52 @@ exportGraph(induced_subgraph(citnw,which(V(citnw)$horizontalDepth<=400)),'proces
 
 
 ######
-### overlap between sub-networks
+### overlap between sub-networks ?
+
+# - % of full nw covered for each kw as function of hdepth
+# - 2-by-2 overlaps ? (heatmap ~ proximity matrix) ! =f(depth) -> do for the two exported networks
+
+N = vcount(citnw)
+
+g=ggplot(res[res$kw!='all',],aes(x=horizontalDepth,y=vcount/N,group=kw,color=kw))
+g+geom_point()+geom_line()+xlab('Horizontal depth')+ylab('Full network coverage')+scale_color_discrete(name='Subgraph')+stdtheme
+ggsave(file=paste0(resdir,'coverage_subnws.png'),width=30,height=20,units='cm')
+# -> luti has a high coverage, comparable to 'spatial microsim model'
 
 
+# overlap heatmaps at d = 3,10,100,400
+currenthdepths=c(3,10,100,400)
 
+#overlaps=data.frame()
 
+ckws1=c();ckws2=c();chds=c();crelovs=c();cabsovs=c()
+for(hd in currenthdepths){
+  currentcitnw = induced_subgraph(citnw,which(V(citnw)$horizontalDepth<=hd))
+  for(kw1 in kws){
+    show(kw1)
+    for(kw2 in kws){
+      show(kw2)
+      # overlap in % of the full nw ? (normalized)
+      ids1=V(currentcitnw)$name[!is.na(get.vertex.attribute(currentcitnw,kw1))]
+      ids2=V(currentcitnw)$name[!is.na(get.vertex.attribute(currentcitnw,kw2))]
+      relov = 2*length(intersect(ids1,ids2))/(length(ids1)+length(ids2))
+      absov = length(intersect(ids1,ids2))/N
+      crelovs=append(crelovs,relov);cabsovs=append(cabsovs,absov);chds=append(chds,hd);ckws1=append(ckws1,kw1);ckws2=append(ckws2,kw2)
+    }
+  }
+}
 
+overlaps=data.frame(kw1=ckws1,kw2=ckws2,horizontalDepth=chds,relov=crelovs,absov=cabsovs)
+
+g=ggplot(overlaps,aes(x=kw1,y=kw2,fill=relov))
+g+geom_raster()+facet_wrap(~horizontalDepth)+xlab('')+ylab('')+stdtheme+
+  scale_fill_continuous(name='Relative overlap')+theme(axis.text.x = element_text(angle = 90,hjust=1))
+ggsave(file=paste0(resdir,'overlaps_relative.png'),width=35,height=30,units='cm')
+
+g=ggplot(overlaps,aes(x=kw1,y=kw2,fill=absov))
+g+geom_raster()+facet_wrap(~horizontalDepth)+xlab('')+ylab('')+stdtheme+
+  scale_fill_continuous(name='Absolute overlap')+theme(axis.text.x = element_text(angle = 90,hjust=1))
+ggsave(file=paste0(resdir,'overlaps_relative.png'),width=35,height=30,units='cm')
 
 
 
