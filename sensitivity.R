@@ -17,40 +17,13 @@ load('processed/citation_kws_tmp.RData')
 # sensitivity analysis of network properties to horizontal (and vertical ?) depth
 
 
-nwProperties <- function(citnw){
-  A=as_adjacency_matrix(citnw,sparse = T)
-  M = A+t(A)
-  undir_citnw = graph_from_adjacency_matrix(M,mode="undirected")
-  coms = cluster_louvain(undir_citnw)
-  return(c(
-    modularity = modularity(coms),
-    #directedModularity = directedmodularity(membership(coms),A), # long to compute and very close to undir
-    communitiesnumber = length(unique(membership(coms))),
-    avgDegree = mean(degree(citnw,mode = 'all')),
-    avgInDegree = mean(degree(citnw,mode = 'in')),
-    avgOutDegree = mean(degree(citnw,mode = 'in')),
-    alphaDegree = hierarchy(degree(citnw,mode = 'all')),
-    alphaInDegree = hierarchy(degree(citnw,mode = 'in')),
-    alphaOutDegree = hierarchy(degree(citnw,mode = 'out')),
-    ecount = ecount(citnw),
-    vcount = vcount(citnw)
-  ))
-}
-
-exportGraph <- function(citnw,exportfile){
-  citation = citnw
-  V(citation)$reduced_title = sapply(V(citation)$title,function(s){paste0(substr(s,1,50),"...")})
-  V(citation)$reduced_title = ifelse(degree(citation)>20,V(citation)$reduced_title,rep("",vcount(citation)))
-  write_graph(citation,file=exportfile,format = 'gml')
-}
-
 ####
 # sensitivity both for full and depth 100 nw ? not needed as full includes 100
 # rq: do the same for subnws for each req
 
 edges <- read.csv('processed/core_full_edges.csv',colClasses = c('character','character'))
 nodes <- as.tbl(read.csv('processed/core_full_nodes.csv',stringsAsFactors = F,colClasses = rep('character',12)))
-for(j in 3:ncol(nodes)){nodes[,j]<-as.numeric(unlist(nodes[,j]))}
+for(j in 4:ncol(nodes)){nodes[,j]<-as.numeric(unlist(nodes[,j]))}
 citnw <- graph_from_data_frame(edges,vertices = nodes)
 
 #nwProperties(citnw)
@@ -116,11 +89,42 @@ ggsave(file=paste0(resdir,'pareto_vcount-modularity.png'),width=20,height=18,uni
 # export the two in gml for viz
 res[res$kw=='all'&res$modularity==max(res$modularity[res$kw=='all']),]
 # -> hd = 3
-exportGraph(induced_subgraph(citnw,which(V(citnw)$horizontalDepth<=3)),'processed/core_hdepth3.gml')
+currentcitnw=induced_subgraph(citnw,which(V(citnw)$horizontalDepth<=3))
+exportGraph(currentcitnw,'processed/core_hdepth3.gml')
+# IGRAPH a89a25b DN-- 33342 78921
+# also export filtered version without "far communities" (finance and taxes) for better viz
+set.seed(0)
+coms = communities_louvain(currentcitnw)
+degs=degree(currentcitnw,mode='in')
+for(com in unique(coms$membership)){currentv = coms$membership==com;currentt=V(currentcitnw)$title[currentv];
+show(paste0(com,' ; N=',length(which(currentv))," ; ",currentt[which(degs[currentv]==max(degs[currentv]))]))
+}
+# remove : 4 Finance (N=2911) ; 22 taxes (N=1645) ; rest are anecdotic
+# IGRAPH 55d06a7 DN-- 28786 66603 
+export_gml(induced_subgraph(currentcitnw,which(coms$membership!=4&coms$membership!=22)),'processed/core_hdepth3_filtered.gml')
+#vcount(currentfiltered)/vcount(currentcitnw)
 
 res[res$kw=='all'&res$modularity>0.748&res$vcount>1.25e5,]
 # -> hd = 400
-exportGraph(induced_subgraph(citnw,which(V(citnw)$horizontalDepth<=400)),'processed/core_hdepth400.gml')
+currentcitnw=induced_subgraph(citnw,which(V(citnw)$horizontalDepth<=400))
+export_gml(currentcitnw,'processed/core_hdepth400.gml')
+set.seed(0)
+coms = communities_louvain(currentcitnw)
+degs=degree(currentcitnw,mode='in')
+for(com in unique(coms$membership)){currentv = coms$membership==com;currentt=V(currentcitnw)$title[currentv];
+show(paste0(com,' ; N=',length(which(currentv))," ; ",currentt[which(degs[currentv]==max(degs[currentv]))]))
+}
+# remove : 32 (N=3774 breast cancer) ; 3 (N=12238 taxes) ; 17 (N=3551 finance) ; 23 (N=1892 HIV) ;
+# 38 (N=555 epilepsy) ; 15 (N=267) solute transport ; 1 (N=82 tubercolosis) ; 39 (N=373 dividends) ;
+# 16 (N=897 heart) ; 13 (N=218 resuscitation) ; 2 ( N=134 medical savings) ; 9 (N=27 rainfall) ;
+# 24 (N=98 CO2) ; 37 (N=198 chemistry) ; 33 (N=17 dentistry) ; 21 N=8 aoelian transport 
+# rq : could also remove automatically "too far communities ?"
+#  decide if work on filtered ? YES
+filtered=c(32,3,17,23,38,15,1,39,16,13,2,9,24,37,33,21)
+currentfiltered = induced_subgraph(currentcitnw,which(!coms$membership%in%filtered))
+vcount(currentfiltered)/vcount(currentcitnw) # 0.8116309 -> only 19% of unrelated !
+export_gml(currentfiltered,'processed/core_hdepth400_filtered.gml')
+export_csv(currentfiltered,'processed/core_hdepth400_filtered_edges.csv','processed/core_hdepth400_filtered_nodes.csv',V(currentfiltered)$horizontalDepth)
 
 
 ######
@@ -169,7 +173,7 @@ ggsave(file=paste0(resdir,'overlaps_relative.png'),width=35,height=30,units='cm'
 g=ggplot(overlaps,aes(x=kw1,y=kw2,fill=absov))
 g+geom_raster()+facet_wrap(~horizontalDepth)+xlab('')+ylab('')+stdtheme+
   scale_fill_continuous(name='Absolute overlap')+theme(axis.text.x = element_text(angle = 90,hjust=1))
-ggsave(file=paste0(resdir,'overlaps_relative.png'),width=35,height=30,units='cm')
+ggsave(file=paste0(resdir,'overlaps_absolute.png'),width=35,height=30,units='cm')
 
 
 

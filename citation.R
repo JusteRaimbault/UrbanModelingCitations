@@ -144,41 +144,13 @@ load('processed/citation_tmp.RData')
 load('processed/citation_kws_tmp.RData')
 
 # csv export
-
-write.csv(data.frame(
- from = tail_of(citation,E(citation))$name,
- to = head_of(citation,E(citation))$name
- ),file=
-   'processed/core_full_edges.csv',row.names = F,quote=F
-)
-
-nodesdf = data.frame(id=V(citation)$name,title=V(citation)$title,year=V(citation)$year,depth=V(citation)$depth,horizontalDepth=V(citation)$numHorizontalDepth
-  #priority=V(citation)$priority,
-  #horizontalDepth=V(citation)$horizontalDepth, # not needed - temporary variable
-  #,citingFilled=V(citation)$citingFilled
-)
-for(kw in kws){nodesdf = cbind(nodesdf,get.vertex.attribute(citation,kw))}
-names(nodesdf)[6:length(nodesdf)]=kws
-
-write.csv(
-  nodesdf
-   ,file='processed/core_full_nodes.csv',row.names = F
-)
- 
+export_csv(citation,'processed/core_full_edges.csv','processed/core_full_nodes.csv',V(citation)$numHorizontalDepth)
  
 #### filter graph h depth 100
 # in filtered graph if exists one attribute such that d <= 100 <=> min(d_attrs) <= 100
 # -> can filter on horizontalDepth
 citfiltered = induced_subgraph(citation,which(V(citation)$numHorizontalDepth<=100))
-
-write.csv(data.frame(from = tail_of(citfiltered,E(citfiltered))$name,to = head_of(citfiltered,E(citfiltered))$name),file=
-  'processed/core_hdepth100_nodes.csv',row.names = F,quote=F
-)
-
-nodesdf = data.frame(id=V(citfiltered)$name,title=V(citfiltered)$title,year=V(citfiltered)$year,depth=V(citfiltered)$depth,horizontalDepth=V(citfiltered)$numHorizontalDepth)
-for(kw in kws){nodesdf = cbind(nodesdf,get.vertex.attribute(citfiltered,kw))}
-names(nodesdf)[6:length(nodesdf)]=kws
-write.csv(nodesdf,file='processed/core_hdepth100_edges.csv',row.names = F)
+export_csv(citfiltered,'processed/core_hdepth100_edges.csv','processed/core_hdepth100_nodes.csv',V(citfiltered)$numHorizontalDepth)
 
 
 

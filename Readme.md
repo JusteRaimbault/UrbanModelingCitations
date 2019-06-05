@@ -3,9 +3,11 @@
 
 The clean dataset is 
  - `processed/core_full_edges.csv` ; `processed/core_full_nodes.csv` for the full (incomplete) graph
- - `processed/core_hdepth100_nodes.csv` ; `processed/core_hdepth100_edges.csv` for the graph at horizontal depth 100 (complete)
+ - `processed/core_hdepth400_filtered_{edges|nodes}.csv` for the filtered network at horizontal depth 400.
 
-We work on the second; both are core networks (remove vertices with degree <= 1 until no more)
+**We work on the second**
+
+(both are core networks (remove vertices with degree <= 1 until no more))
 
 ### node attributes
 

@@ -2,10 +2,73 @@ library(Matrix)
 
 
 
+nwProperties <- function(citnw){
+  A=as_adjacency_matrix(citnw,sparse = T)
+  M = A+t(A)
+  undir_citnw = graph_from_adjacency_matrix(M,mode="undirected")
+  coms = cluster_louvain(undir_citnw)
+  return(c(
+    modularity = modularity(coms),
+    #directedModularity = directedmodularity(membership(coms),A), # long to compute and very close to undir
+    communitiesnumber = length(unique(membership(coms))),
+    avgDegree = mean(degree(citnw,mode = 'all')),
+    avgInDegree = mean(degree(citnw,mode = 'in')),
+    avgOutDegree = mean(degree(citnw,mode = 'in')),
+    alphaDegree = hierarchy(degree(citnw,mode = 'all')),
+    alphaInDegree = hierarchy(degree(citnw,mode = 'in')),
+    alphaOutDegree = hierarchy(degree(citnw,mode = 'out')),
+    ecount = ecount(citnw),
+    vcount = vcount(citnw)
+  ))
+}
+
+export_gml <- function(citnw,exportfile){
+  citation = citnw
+  V(citation)$reduced_title = sapply(V(citation)$title,function(s){paste0(substr(s,1,50),"...")})
+  V(citation)$reduced_title = ifelse(degree(citation)>20,V(citation)$reduced_title,rep("",vcount(citation)))
+  write_graph(citation,file=exportfile,format = 'gml')
+}
+
+#'
+#' specific export for citnw
+export_csv<- function(citation,filedges,filenodes,hdepth){
+  write.csv(data.frame(
+    from = tail_of(citation,E(citation))$name,
+    to = head_of(citation,E(citation))$name
+  ),file=filedges
+    ,row.names = F,quote=F
+  )
+  
+  nodesdf = data.frame(
+    id=V(citation)$name,title=V(citation)$title,lang=V(citation)$lang,year=V(citation)$year,
+    depth=V(citation)$depth,horizontalDepth=hdepth
+    #priority=V(citation)$priority,
+    #horizontalDepth=V(citation)$horizontalDepth, # not needed - temporary variable
+    #,citingFilled=V(citation)$citingFilled
+  )
+  for(kw in kws){nodesdf = cbind(nodesdf,get.vertex.attribute(citation,kw))}
+  names(nodesdf)[7:length(nodesdf)]=kws
+  
+  write.csv(
+    nodesdf
+    ,file=filenodes,row.names = F
+  )
+  
+}
+
+
+
 hierarchy <- function(x){
   xx = x[!is.na(x)&x>0]
   reg = lm(data = data.frame(rank = log(1:length(xx)),val=log(sort(xx,decreasing = T))),val~rank)
   return(-reg$coefficients[2])
+}
+
+communities_louvain<-function(citnw){
+  A=as_adjacency_matrix(citnw,sparse = T)
+  M = A+t(A)
+  undir_citnw = graph_from_adjacency_matrix(M,mode="undirected")
+  return(cluster_louvain(undir_citnw))
 }
 
 
