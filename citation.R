@@ -206,32 +206,6 @@ write.csv(nodesdf,file='processed/core_hdepth100_edges.csv',row.names = F)
 #' 
 #' 
 #' 
-#' ######
-#' # for gml export
-#' 
-#' V(citation)$reduced_title = sapply(V(citation)$title,function(s){paste0(substr(s,1,50),"...")})
-#' V(citation)$reduced_title = ifelse(degree(citation)>20,V(citation)$reduced_title,rep("",vcount(citation)))
-#' 
-#' V(d100)$reduced_title = sapply(V(d100)$title,function(s){paste0(substr(s,1,50),"...")})
-#' V(d100)$reduced_title = ifelse(degree(d100)>20,V(d100)$reduced_title,rep("",vcount(d100)))
-#' 
-#' 
-#' citationcore = induced_subgraph(citation,which(degree(citation)>1))
-#' citationcorehigher = citationcore
-#' while(length(which(degree(citationcorehigher)==1))>0){citationcorehigher = induced_subgraph(citationcorehigher,which(degree(citationcorehigher)>1))}
-#' 
-#' #write_graph(citationcore,file='data/spatialmicrosim_core.gml',format = 'gml')
-#' #write_graph(citationcorehigher,file='data/spatialmicrosim_corehigher.gml',format = 'gml')
-#' 
-#' citationcore = induced_subgraph(d100,which(degree(d100)>1))
-#' citationcorehigher = citationcore
-#' while(length(which(degree(citationcorehigher)==1))>0){citationcorehigher = induced_subgraph(citationcorehigher,which(degree(citationcorehigher)>1))}
-#' write_graph(citationcorehigher,file='processed/core_hdepth100.gml',format = 'gml')
-#' 
-#' 
-#' 
-#' 
-#' 
 #' 
 #' ##### old stuff
 #' 

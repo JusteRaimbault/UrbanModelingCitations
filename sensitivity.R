@@ -37,8 +37,15 @@ nwProperties <- function(citnw){
   ))
 }
 
+exportGraph <- function(citnw,exportfile){
+  citation = citnw
+  V(citation)$reduced_title = sapply(V(citation)$title,function(s){paste0(substr(s,1,50),"...")})
+  V(citation)$reduced_title = ifelse(degree(citation)>20,V(citation)$reduced_title,rep("",vcount(citation)))
+  write_graph(citation,file=exportfile,format = 'gml')
+}
+
 ####
-# sensitivity both for full and depth 100 nw
+# sensitivity both for full and depth 100 nw ? not needed as full includes 100
 # rq: do the same for subnws for each req
 
 edges <- read.csv('processed/core_full_edges.csv',colClasses = c('character','character'))
@@ -70,13 +77,57 @@ res[['kw']]<-kwstr[res$kwid]
 save(res,file='processed/sensitivity.RData')
 
 indics = names(res)[1:(ncol(res)-3)]
+indicnames = c('modularity'='Modularity','communitiesnumber'='Number of communities','avgDegree'='Average degree',
+               'avgInDegree'='Average in-degree','avgOutDegree'='Average out-degree',
+               'alphaDegree.rank'='Degree hierarchy','alphaInDegree.rank'='In-degree hierarchy','alphaOutDegree.rank'='Out-degree hierarchy',
+               'ecount'='Links','vcount'='Nodes'
+               )
 
 for(indic in indics){
   g=ggplot(res,aes_string(x='horizontalDepth',y=indic,group='kw',color='kw'))
-  g+geom_point()+geom_line()+xlab('Horizontal depth')+scale_color_discrete()+stdtheme
-  #ggsave(file=paste0(resdir,'sensitivity_fullnw_hdmax100_',indic,'.png'),width=20,height=18,units='cm')
+  g+geom_point()+geom_line()+xlab('Horizontal depth')+ylab(indicnames[indic])+scale_color_discrete(name='Subgraph')+stdtheme
   ggsave(file=paste0(resdir,'sensitivity_fullnw_subnws_',indic,'.png'),width=30,height=20,units='cm')
 }
+
+for(indic in indics){
+  g=ggplot(res[res$horizontalDepth<=100,],aes_string(x='horizontalDepth',y=indic,group='kw',color='kw'))
+  g+geom_point()+geom_line()+xlab('Horizontal depth')+ylab(indicnames[indic])+scale_color_discrete(name='Subgraph')+stdtheme
+  ggsave(file=paste0(resdir,'sensitivity_fullnw_hdmax100_subnws_',indic,'.png'),width=30,height=20,units='cm')
+}
+
+
+# absolute optimum is not clear - low difference and varies accross subnetworks
+# try Pareto ?
+
+# vcount / modularity
+g=ggplot(res,aes(x=vcount,y=modularity,color=kw,group=kw))
+g+geom_point()+xlab('Nodes')+ylab('Modularity')+scale_color_discrete(name='Subgraph')+stdtheme
+ggsave(file=paste0(resdir,'pareto_vcount-modularity_subnws.png'),width=25,height=18,units='cm')
+
+g=ggplot(res[res$kw=='all',],aes(x=vcount,y=modularity,color=horizontalDepth))
+g+geom_point()+xlab('Nodes')+ylab('Modularity')+scale_color_continuous(name='Depth')+stdtheme
+ggsave(file=paste0(resdir,'pareto_vcount-modularity.png'),width=20,height=18,units='cm')
+# -> two 'type of networks' seem emerge : few nodes-higher mod ; more nodes-lower mod
+# test viz / com description on the two ?
+
+# other Pareto ? seems ok
+
+# export the two in gml for viz
+res[res$kw=='all'&res$modularity==max(res$modularity[res$kw=='all']),]
+# -> hd = 3
+exportGraph(induced_subgraph(citnw,which(V(citnw)$horizontalDepth<=3)),'processed/core_hdepth3.gml')
+
+res[res$kw=='all'&res$modularity>0.748&res$vcount>1.25e5,]
+# -> hd = 400
+exportGraph(induced_subgraph(citnw,which(V(citnw)$horizontalDepth<=400)),'processed/core_hdepth400.gml')
+
+
+######
+### overlap between sub-networks
+
+
+
+
 
 
 
