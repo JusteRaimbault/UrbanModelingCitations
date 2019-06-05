@@ -1,6 +1,14 @@
 library(Matrix)
 
 
+
+hierarchy <- function(x){
+  xx = x[!is.na(x)&x>0]
+  reg = lm(data = data.frame(rank = log(1:length(xx)),val=log(sort(xx,decreasing = T))),val~rank)
+  return(-reg$coefficients[2])
+}
+
+
 # modularity
 directedmodularity<-function(membership,adjacency){
   m=sum(adjacency)

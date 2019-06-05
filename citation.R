@@ -136,8 +136,12 @@ for(kw in kws[2:length(kws)]){hdepthdf = cbind(hdepthdf,get.vertex.attribute(cit
 V(citation)$numHorizontalDepth = apply(hdepthdf,1,function(r){min(r,na.rm = T)})
 
 save(citation,file='processed/citation_tmp.RData')
-load('processed/citation_tmp.RData')
+save(kws,file='processed/citation_kws_tmp.RData')
 
+####-- Export -- ####
+
+load('processed/citation_tmp.RData')
+load('processed/citation_kws_tmp.RData')
 
 # csv export
 
