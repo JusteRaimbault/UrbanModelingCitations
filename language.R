@@ -27,6 +27,7 @@ lang %>% filter(confidence>80&confidence<90&reliable=='True') # ok
 lang <- lang %>% filter(reliable=='True'&confidence>80)
 
 table(lang$lang)
+sort(100*c(table(lang$lang))/nrow(lang))
 
 lang %>% filter(lang=='Latin')
 # errors ? - still errors - 96% confidence e.g.

@@ -104,6 +104,15 @@ show(paste0(com,' ; N=',length(which(currentv))," ; ",currentt[which(degs[curren
 export_gml(induced_subgraph(currentcitnw,which(coms$membership!=4&coms$membership!=22)),'processed/core_hdepth3_filtered.gml')
 #vcount(currentfiltered)/vcount(currentcitnw)
 
+# export a subset with targeted communities
+# 20 : complex systems, 17 geoabm, 1: Luti, 16 : microsim
+export_gml(induced_subgraph(currentcitnw,which(coms$membership%in%c(20,17,1,16))),'processed/core_hdepth3_filtered_targeted.gml')
+
+
+
+###
+# other 'optimal' point
+
 res[res$kw=='all'&res$modularity>0.748&res$vcount>1.25e5,]
 # -> hd = 400
 currentcitnw=induced_subgraph(citnw,which(V(citnw)$horizontalDepth<=400))
