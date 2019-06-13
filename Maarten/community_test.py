@@ -1,4 +1,3 @@
-
 ##############################################################################################
 # -*- coding: utf-8 -*-
 # Script to test some community detection on the urbanmodeling citations
@@ -23,6 +22,8 @@ import community #For Louvain la neuve algorithm. Be aware though, in pypi this 
 import networkx as nx #For Network handling
 import matplotlib.pyplot as plt  #For interactive plotting
 import pandas as pd #For data handling
+import math #For mathematical expressions
+import numpy as np #For fast array handling
 
 
 ############################
@@ -30,7 +31,7 @@ import pandas as pd #For data handling
 ############################
 #Where inputdata lives and output will be put
 foldername_input ='/Users/Metti_Hoof/Desktop' 
-foldername_output ='/Users/Metti_Hoof/Desktop' 
+foldername_output ='/Users/Metti_Hoof/Desktop/test_figures' 
 
 
 ########################################################
@@ -266,7 +267,7 @@ for year in dict_year_subgraph_accumulative.keys():
 ############################
 #3.4. Plot some calculated attributes of the subgraphs
 ############################
-
+'''
 #Plot bar chart of variable per year in the dict_year_subgraph_accumulative_properties
 variables_to_plot=['average_clustering',
 					'number_of_edges',
@@ -298,7 +299,7 @@ for variable in variables_to_plot:
 	output_figure=foldername_output+figure_name
 	plt.savefig(output_figure)
 	plt.close('all')
-
+'''
 
 ########################################################
 #3. Create Louvain La Neuve communities based on filtered graphs
@@ -309,16 +310,21 @@ for variable in variables_to_plot:
 # It is not worth investigating for single years as they do not city each other a lot and so the graph has too little edges
 ############################
 
-print 'We are calciultating the Louvain-La-Neuve partition'
+print 'We are calculating the Louvain-La-Neuve partition'
+
+dict_year_subgraph_accumulative_partitions={}
+
 
 for year in dict_year_subgraph_accumulative.keys():
 	#calculate Louvain partition
 	partition = community.best_partition(dict_year_subgraph_accumulative[year])
-	number_of_communities=len(set(partition.values()))
-	print year, " number of communities: ", number_of_communities
-	
-	#Write away
-	dict_year_subgraph_accumulative_properties[year]['number_of_communities']=number_of_communities
+
+	#Write away partitions
+	dict_year_subgraph_accumulative_partitions[year]=partition
+
+	#Write away some properties
+	dict_year_subgraph_accumulative_properties[year]['number_of_communities']=len(set(partition.values()))
+	print year, " number of communities: ", len(set(partition.values()))
 
 	if dict_year_subgraph_accumulative[year].number_of_edges()>0: #You can only calculate the modularity if there are nodes in the graph
 		#Calculate modularity when possible
@@ -388,9 +394,10 @@ dict_year_subgraph_accumulative_communities={}
 #dict_year_subgraph_accumulative_communities[year][community]=[list of all nodes in this community]
 
 for year in dict_year_subgraph_accumulative.keys():
-	print 'Calculating the partition for a second time for year', year
-	#calculate Louvain partition
-	partition = community.best_partition(dict_year_subgraph_accumulative[year])
+	print 'Loading the partition for year', year
+	   
+	#load Louvain partition
+	partition = dict_year_subgraph_accumulative_partitions[year]
 
 	#initiate a dict tussen that will have community number as key and a list as values (which will be filled up later with the list of nodes that belong to it)
 	dict_tussen={}
@@ -412,7 +419,7 @@ for year in dict_year_subgraph_accumulative.keys():
 #dict_year_subgraph_accumulative_communities_top20[year]=list of lists with the names of the top 20 communities and their nodes
 dict_year_subgraph_accumulative_communities_top20={}
 
-#dict_year_subgraph_accumulative_communities_top20_df_attributes[year][community]=df featuring the top 20 communities with several attributes
+#dict_year_subgraph_accumulative_communities_top20_df_attributes[year]=df featuring the top 20 communities with several attributes
 dict_year_subgraph_accumulative_communities_top20_df_attributes={}
 
 
@@ -444,14 +451,14 @@ for year in dict_year_subgraph_accumulative_communities.keys():
 						'rank_com':rank_count,
 						'number_of_nodes':len(list_of_nodes),
 						'average_year':df_nodes_tussen['year'].mean(skipna = True),
-						'sum_horizontalDepth':df_nodes_tussen['horizontalDepth'].sum(skipna = True),
-						'sum_microsim':df_nodes_tussen['microsim'].sum(skipna = True),
-						'sum_transportmicrosimmode':df_nodes_tussen['transportmicrosimmodel'].sum(skipna = True),
-						'sum_microsimmodel':df_nodes_tussen['microsimmodel'].sum(skipna = True),
-						'sum_urbanmicrosimmodel':df_nodes_tussen['urbanmicrosimmodel'].sum(skipna = True),
-						'sum_spatialmicrosimmodel':df_nodes_tussen['spatialmicrosimmodel'].sum(skipna = True),
-						'sum_lutimodel':df_nodes_tussen['lutimodel'].sum(skipna = True),
-						'sum_spatialmicrosim':df_nodes_tussen['spatialmicrosim'].sum(skipna = True),
+						'mean_horizontalDepth':df_nodes_tussen['horizontalDepth'].mean(skipna = True),
+						'mean_microsim':df_nodes_tussen['microsim'].mean(skipna = True),
+						'mean_transportmicrosimmode':df_nodes_tussen['transportmicrosimmodel'].mean(skipna = True),
+						'mean_microsimmodel':df_nodes_tussen['microsimmodel'].mean(skipna = True),
+						'mean_urbanmicrosimmodel':df_nodes_tussen['urbanmicrosimmodel'].mean(skipna = True),
+						'mean_spatialmicrosimmodel':df_nodes_tussen['spatialmicrosimmodel'].mean(skipna = True),
+						'mean_lutimodel':df_nodes_tussen['lutimodel'].mean(skipna = True),
+						'mean_spatialmicrosim':df_nodes_tussen['spatialmicrosim'].mean(skipna = True),
 						#'language_count_English':df_nodes_tussen['lang'].value_counts()['English'],
 						#'language_count_English_relative':df_nodes_tussen['lang'].value_counts()['English']/float(len(list_of_nodes))*100
 						#'language_count_Chinese':df_nodes_tussen['lang'].value_counts()['Chinese'],
@@ -466,13 +473,327 @@ for year in dict_year_subgraph_accumulative_communities.keys():
 		#Update rank_count
 		rank_count=rank_count+1
 
+##############
+#4.2.1. Plot some characteristics of top 20 communities for each year
+##############
+'''
+#Number of nodes bar charts
+for year in dict_year_subgraph_accumulative_communities_top20_df_attributes.keys():
+	print 'We are plotting the bar chart of the number of nodes for the top 20 communities of year', year
+	df_top20_com=dict_year_subgraph_accumulative_communities_top20_df_attributes[year]
+	
+	ax = df_top20_com.plot.bar(y='number_of_nodes', rot=0)
+	ax.set_ylim(0,1500) #limits based on 2019 max data
+	
+	# create a list to collect the plt.patches data
+	totals = []
+
+	# find the values and append to list
+	for i in ax.patches:
+		   totals.append(i.get_height())
+
+	# set individual bar labels using above list
+	total = sum(totals)
+
+	# set individual bar labels using above list
+	for i in ax.patches:
+		   # get_x pulls left or right; get_height pushes up or down
+		      ax.text(i.get_x()-.03, i.get_height()+10, \
+				         str(int(i.get_height())), fontsize=9,color='dimgrey')
+				       
+	
+	title ='Number of nodes for top 20 communities in year %s'%(year)
+	plt.title(title)
+	
+	figure_name='/bar_chart_accumulative_years_top20_com_number_of_nodes_%s.png' %(year)
+	output_figure=foldername_output+figure_name
+	plt.savefig(output_figure)
+	plt.close('all')
 
 
 
+
+#Number of nodes bar charts
+for year in dict_year_subgraph_accumulative_communities_top20_df_attributes.keys():
+	print 'We are plotting the bar chart of mean horizontal depth for the top 20 communities of year', year
+	df_top20_com=dict_year_subgraph_accumulative_communities_top20_df_attributes[year]
+	
+	ax = df_top20_com.plot.bar(y='mean_horizontalDepth', rot=0)
+	ax.set_ylim(0,500) #limits based on data collection reality
+	
+	# create a list to collect the plt.patches data
+	totals = []
+
+	# find the values and append to list
+	for i in ax.patches:
+		   totals.append(i.get_height())
+
+	# set individual bar lables using above list
+	total = sum(totals)
+
+	# set individual bar lables using above list
+	for i in ax.patches:
+		   # get_x pulls left or right; get_height pushes up or down
+		      ax.text(i.get_x()-.03, i.get_height()+10, \
+				         str(int(i.get_height())), fontsize=9,color='dimgrey')
+				       
+	
+	title ='Mean horizontal depth (minimum per paper for all keywords) \n for top 20 communities in year %s'%(year)
+	plt.title(title)
+	
+	figure_name='/bar_chart_accumulative_years_top20_com_mean_horizontal_depth_%s.png' %(year)
+	output_figure=foldername_output+figure_name
+	plt.savefig(output_figure)
+	plt.close('all')
+
+
+
+#Combinations of average horizontaldepths of keywords of the communities
+for year in dict_year_subgraph_accumulative_communities_top20_df_attributes.keys():
+	print 'We are plotting the bar chart of the average horizonatal depths for all keywords of the top 20 communities of year', year
+	
+	df_top20_com=dict_year_subgraph_accumulative_communities_top20_df_attributes[year]
+	df_top20_com_avg_horizontaldepths=df_top20_com[['mean_microsim','mean_transportmicrosimmode','mean_microsimmodel',
+												 'mean_urbanmicrosimmodel','mean_spatialmicrosimmodel',
+												 'mean_lutimodel','mean_spatialmicrosim']]
+	print year, df_top20_com_avg_horizontaldepths
+	
+	ax = df_top20_com_avg_horizontaldepths.plot.bar(rot=0)
+	ax.set_ylim(0,500) #limit based on max horizontaldepth=400
+	
+	title ='Mean horizontal depths for different keywords \n for top 20 communities in year %s'%(year)
+	plt.title(title)
+	
+	figure_name='/bar_chart_accumulative_years_top20_com_mean_horizontaldepths_for_all_keywords_%s.png' %(year)
+	output_figure=foldername_output+figure_name
+	plt.savefig(output_figure)
+	plt.close('all')
+
+'''
+
+############################
+#4.3. Investigate the top 20 communities.
+############################
+
+##############
+#4.3.1. Create subgraph for all top 20 communities for each year
+##############
+
+#Create dict[year][communitynumber]=subgraph with only the nodes of this community
+dict_year_subgraph_accumulative_communities_top20_subgraphs_per_year_per_com={}
+
+for year in dict_year_subgraph_accumulative_communities_top20.keys():
+	dict_year_subgraph_accumulative_communities_top20_subgraphs_per_year_per_com[year]={}
+	
+	dictee=dict_year_subgraph_accumulative_communities_top20[year]
+	for com, list_of_nodes_in_com in dictee:
+		print com, len(list_of_nodes_in_com)
+		G_sub_com=G.subgraph(list_of_nodes_in_com).copy()
+		print 'The number of nodes in this graph is: ', G_sub_com.number_of_nodes()
+		dict_year_subgraph_accumulative_communities_top20_subgraphs_per_year_per_com[year][com]=G_sub_com
+	
+
+##############
+#4.3.2. Visualise degree rank and subgraph for all top 20 communities for each year
+##############
+'''
+for year in dict_year_subgraph_accumulative_communities_top20_subgraphs_per_year_per_com.keys():
+		for com in dict_year_subgraph_accumulative_communities_top20_subgraphs_per_year_per_com[year]:
+			G_sub_com=dict_year_subgraph_accumulative_communities_top20_subgraphs_per_year_per_com[year][com]
+			
+			degree_sequence = sorted([d for n, d in G_sub_com.degree()], reverse=True)
+			# print "Degree sequence", degree_sequence
+			dmax = max(degree_sequence)
+			
+			plt.loglog(degree_sequence, 'b-', marker='o')
+			title ='Degree rank plot for nodes in top 20 communities no %s in year %s'%(com,year)
+			plt.title(title)
+			plt.ylabel("degree")
+			plt.ylim(pow(10,0),pow(10,3))
+			plt.xlabel("rank")
+			plt.xlim(pow(10,0),pow(10,3))
+			
+			# draw graph in inset
+			plt.axes([0.45, 0.45, 0.45, 0.45])
+			Gcc = sorted(nx.connected_component_subgraphs(G_sub_com), key=len, reverse=True)[0]
+			pos = nx.spring_layout(Gcc)
+			plt.axis('off')
+			nx.draw_networkx_nodes(Gcc, pos, node_size=10)
+			nx.draw_networkx_edges(Gcc, pos, alpha=0.4)
+			
+			
+
+			figure_name='/degree_rank_plot/degree_rank_plot_accumulative_years_top20_com_%s_%s.png' %(year,com)
+			output_figure=foldername_output+figure_name
+			plt.savefig(output_figure)
+			plt.close('all')
+			
+			#plt.show()
+
+'''
+
+############################
+#4.4. Investigating the consistency of the communities over time.
+############################
+
+
+##############
+#4.1.1. Store membership to com per year + expand the original df_nodes dataset with information on membership to communities for each year
+##############
+
+
+#Create a dict that will hold dfs with nodes and community information per year
+dict_year_subgraph_accumulative_communities_df_nodes_and_com={}
+
+#Expand the original df_nodes dataset with information on membership to communities for each year 
+df_nodes_com=df_nodes.copy()
+
+for year in dict_year_subgraph_accumulative_communities.keys():
+	print '\n We are investigating the membership of nodes in communities for', year
+
+	#Load results of louvain partition per year, this is a dict with the different communities and community numbers.
+	dict_tussen=dict_year_subgraph_accumulative_communities[year]
+	
+	#Create dataframe expressing the relation between nodes and community number in that year 
+	#Rename column to have the year incorporated
+	com_year='com_%s'%(year)
+	
+	df_louvain_nodes_com=pd.DataFrame([(com, node) for (com, list_of_nodes_in_com) in dict_tussen.items() for node in list_of_nodes_in_com], 
+                 columns=[com_year, 'id'])
+	
+	#write away membershio for one year	
+	dict_year_subgraph_accumulative_communities_df_nodes_and_com[year]=df_louvain_nodes_com
+		
+	
+	
+	#Expand the original df_nodes dataset with information on membership to communities for each year
+	#by merging dataframe of nodes attributes with the information on community membership.
+	
+	df_louvain_nodes_com['id']=df_louvain_nodes_com['id'].astype(str) #set id as a string as we did in df_nodes. Otherwise the merge that follows throws an error
+	df_nodes['id']=df_nodes['id'].astype(str)
+	
+	df_nodes_com = df_nodes_com.merge(df_louvain_nodes_com, on='id',how='left')
+	
+
+	#Check whether dimensions are still the same after the merge. 
+	if df_nodes_com.shape[0] != df_nodes_com.shape[0]:
+		print 'The merge we just performed has reduced the dimensions of your inputdata on employment and population. The shapes now are:'
+		print df_nodes_com.shape
+		print df_nodes.shape
+	else:
+		nodes_without_com=df_nodes_com[com_year].isna().sum()
+		print 'The merge has not reduced our nodes dataframe. For the year', year, 'there are' , nodes_without_com, 'nodes without a community' 
+		
+
+	
+# The df_nodes_com dataet now holds information on all the nodes and their membership to different communities over the years.
+#print df_nodes_com.columns	
+	
+	
+##############
+#4.1.2. Create a df_nodes_com_top20 dataframe holding the community, whether this community is in the top 20 and the top20 rank for all nodes
+##############
+
+#create a df_nodes_com_top20 that stores membership to top20 or not for each year and each node.
+df_nodes_com_top20=df_nodes_com.copy()
+
+rank_com_year_list=[]
+for year in dict_year_subgraph_accumulative_communities_top20_df_attributes.keys(): #dict_year_subgraph_accumulative_communities_top20_df_attributes[year]=df featuring the top 20 communities with several attributes
+	df_of_top20_communities_for_that_year=dict_year_subgraph_accumulative_communities_top20_df_attributes[year][['com','rank_com']]
+	print df_of_top20_communities_for_that_year
+	
+	com_year='com_%s'%(year)
+	rank_com_year='rank_com_%s'%(year)
+	rank_com_year_list.append(rank_com_year)
+	top20_membership_year='top20_membership_%s'%(year)
+	
+	# Add a column to df_nodes_com_top20, expressing whether this node was in or out top 20
+	df_nodes_com_top20[top20_membership_year]=np.where(df_nodes_com_top20[com_year].isin(df_of_top20_communities_for_that_year['com']), 'True', 'False')
+	
+	# Add a column to df_nodes_com_top20, expressing in which rank_com he was (rank_com is the rank of the biggest community in the top 20, ranging from 1 to 20)
+	df_nodes_com_top20 = df_nodes_com_top20.merge(df_of_top20_communities_for_that_year, left_on=com_year, right_on='com',how='left')
+	
+	df_nodes_com_top20 = df_nodes_com_top20.rename(columns={'rank_com':rank_com_year}) #Change rank_com to rank_com_year
+	df_nodes_com_top20 = df_nodes_com_top20.drop('com', axis=1) #Drop redundant 'com' column
+	
+
+##############
+#4.1.3. Filter out nodes that are not in top20 communities for any of the years investigated
+##############
+#Create list of  the rank_com_year column names we have been using to indicate whether nodes are in top20 or not	
+rank_com_year_list=[]
+for year in dict_year_subgraph_accumulative_communities_top20_df_attributes.keys(): #dict_year_subgraph_accumulative_communities_top20_df_attributes[year]=df featuring the top 20 communities with several attributes
+	
+	rank_com_year='rank_com_%s'%(year)
+	rank_com_year_list.append(rank_com_year)
+	
+#Drop all rows that have all NaN values in the subset columns. 
+#So in our case we drop all rows that have a NaN for each rank_com_year columns, meaning that they were never in the top 20 . 
+df_nodes_com_top20_filter=df_nodes_com_top20.dropna(subset=rank_com_year_list,how='all').copy() 
+
+	
+############Developing filter nodes of the per year top 20 communities ######################################
+
+
+'''	
+	#Sort communities by number of nodes and create a ranked top 20. 
+	list_of_com_sorted_by_number_of_nodes=sorted(dict_tussen.items(), key=lambda (k, v): len(v), reverse=True) 
+	top20_com=list_of_com_sorted_by_number_of_nodes[:20]
+	
+	#Create dataframe expressing the relation between nodes and community number in that year 
+	#Rename column to have the year incorporated
+	com_year='com_%s'%(year)
+	
+	df_louvain_top20_node_com=pd.DataFrame([(com, node) for (com, list_of_nodes_in_com) in top20_com for node in list_of_nodes_in_com], 
+                 columns=[com_year, 'id'])
+	
+	
+	#Get dataframe of all nodes that are in top 20 communities.
+	full_list_of_nodes_in_top_20=[]
+	for com,list_of_nodes_in_com in top20_com:
+		
+		full_list_of_nodes_in_top_20.extend(list_of_nodes_in_com)
+		
+	
+	df_nodes_top20=df_nodes[df_nodes['id'].isin(full_list_of_nodes_in_top_20)].copy()
+	
+	#Merge dataframe of all nodes that are in top 20 communities with information on which community-year they are in.
+
+	
+	
+	
+	#write away
+	dict_year_subgraph_accumulative_communities_top20_df_nodes[year]=df_nodes_top20
+
+'''
 
 
 
 ###################################### Developing ######################################
+
+
+
+'''
+
+degree_sequence = sorted([d for n, d in G_sub_com.degree()], reverse=True)
+# print "Degree sequence", degree_sequence
+dmax = max(degree_sequence)
+
+plt.loglog(degree_sequence, 'b-', marker='o')
+plt.title("Degree rank plot")
+plt.ylabel("degree")
+plt.xlabel("rank")
+
+# draw graph in inset
+plt.axes([0.45, 0.45, 0.45, 0.45])
+Gcc = sorted(nx.connected_component_subgraphs(G_sub_com), key=len, reverse=True)[0]
+pos = nx.spring_layout(Gcc)
+plt.axis('off')
+nx.draw_networkx_nodes(Gcc, pos, node_size=20)
+nx.draw_networkx_edges(Gcc, pos, alpha=0.4)
+
+plt.show()
+'''
 
 '''
 df_nodes_tussen['lang'].value_counts(),
