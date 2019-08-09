@@ -1,0 +1,664 @@
+
+
+
+
+[1] "Community 16 ; corpus prop 5.00243173765025"
+                                                                                                                            titles
+1211577822180786957                                     GAMA 1.6: Advancing the art of complex agent-based modeling and simulation
+16031735760275167609 New directions for urban economic models of land use change: incorporating spatial dynamics and heterogeneity
+14115402700566851323                                                                                          Agent-based modeling
+9155326475219199484                                     Empirical characterisation of agent behaviours in socio-ecological systems
+10905484890275658005                                            Key challenges in agent-based modelling for geo-spatial simulation
+12713393356621567464                             Spatial agent-based models for socio-ecological systems: Challenges and prospects
+11580884990703276422                                    An economic agent-based model of coupled housing and land markets (CHALMS)
+17071298795551700174                                                           Modeling gentrification dynamics: A hybrid approach
+18246247153930069861                   Modeling human decisions in coupled human and natural systems: Review of agent-based models
+                     degree
+1211577822180786957      96
+16031735760275167609    115
+14115402700566851323     98
+9155326475219199484      96
+10905484890275658005    227
+12713393356621567464    143
+11580884990703276422     69
+17071298795551700174     58
+18246247153930069861    212
+[1] "Community 20 ; corpus prop 1.87591190161884"
+                                                                                                                            titles
+2765907686933992521  Redistributive effects of bus rapid transit (BRT) on development patterns and property values in Seoul, Korea
+1859443177837258473                                                             Interdisciplinary perspectives on urban metabolism
+1420798108889997015                           Ecological approaches in planning for sustainable cities: A review of the literature
+5887396713550097893                                                   An alternative model for evaluating sustainable urbanization
+13465055523057258142                                                          Modeling the urban ecosystem: a conceptual framework
+1676201911122916781                                                           Energy and material flow through the urban ecosystem
+825521181148535066                                    Toward sustainable communities: Solutions for citizens and their governments
+3741557393025207139                                                                                   Sustainable cities in Europe
+                     degree
+2765907686933992521      31
+1859443177837258473      65
+1420798108889997015      25
+5887396713550097893      33
+13465055523057258142     60
+1676201911122916781     107
+825521181148535066       63
+3741557393025207139      37
+[1] "Community 22 ; corpus prop 3.30021538247759"
+                                                                                                                             titles
+15079347748595172456                                             Speed-based toll design for cordon-based congestion pricing scheme
+15653044645351154548                             Piecewise-linearized cell transmission model and parameter calibration methodology
+3711958712186797517                 Macroscopic relations of urban traffic variables: Bifurcations, multivaluedness and instability
+4691148761004673475                          Sensitivity of simulated capacity to modification of VISSIM driver behavior parameters
+6729526313276580589                                                            Congested freeway microsimulation model using VISSIM
+16561047501284825043 A dynamic cordon pricing scheme combining the Macroscopic Fundamental Diagram and an agent-based traffic model
+18149108132713026307                          The spatial variability of vehicle densities as determinant of urban network capacity
+4305594301918566687                                      Optimal freeway ramp metering using the asymmetric cell transmission model
+3252240335972142762                                      Behavior of the cell transmission model and effectiveness of ramp metering
+                     degree
+15079347748595172456     43
+15653044645351154548     61
+3711958712186797517     110
+4691148761004673475      59
+6729526313276580589     145
+16561047501284825043     60
+18149108132713026307    100
+4305594301918566687     115
+3252240335972142762      72
+[1] "Community 10 ; corpus prop 3.44959355242132"
+                                                                                                                                               titles
+442997395565739402                                           CitySim: Comprehensive micro-simulation of resource flows for sustainable urban planning
+11061023040969893898                                                                     The impact of occupants' behaviour on building energy demand
+14636935612367080403 Integrated model for characterization of spatiotemporal building energy consumption patterns in neighborhoods and city districts
+14701214985549557875           Solar energy and urban morphology: Scenarios for increasing the renewable energy potential of neighbourhoods in London
+5080567289274784188                                                         MES (multi-energy systems): An overview of concepts and evaluation models
+10428455638696151175                                           Distributed energy resource system optimisation using mixed integer linear programming
+9529295930153754777                                                  A review of urban energy system models: Approaches, challenges and opportunities
+17150481678861891040                                                            Urban building energy modeling\342\200\223A review of a nascent field
+985918566018854020                                                                            Applications of 3D city models: State of the art review
+                     degree
+442997395565739402      157
+11061023040969893898     49
+14636935612367080403     67
+14701214985549557875     43
+5080567289274784188      64
+10428455638696151175     39
+9529295930153754777     167
+17150481678861891040     99
+985918566018854020       56
+[1] "Community 27 ; corpus prop 2.66101577155562"
+                                                                                                                     titles
+15968791912395038937                                                            Multidimensional path search and assignment
+6372965340255626675                     Shortest path algorithms in transportation models: classical and innovative aspects
+18254734480570300118                                                        Dual graph representation of transport networks
+10027833015588336982 On the use and potential of behavioural economics from the perspective of transport and climate change
+9825399513710080136                                    A GPS-based bicycle route choice model for San Francisco, California
+8212499862727927550                          Modeling route choice behavior: How relevant is the composition of choice set?
+9295545382347978711                                  A dynamic traffic assignment model for highly congested urban networks
+887274373610196405    The value of travel information: Decision strategy-specific conceptualizations and numerical examples
+5685491389292395663                                                                      Network knowledge and route choice
+                     degree
+15968791912395038937    126
+6372965340255626675      93
+18254734480570300118     62
+10027833015588336982     54
+9825399513710080136      92
+8212499862727927550      65
+9295545382347978711      50
+887274373610196405       31
+5685491389292395663     163
+[1] "Community 6 ; corpus prop 1.43472521364552"
+                                                                                                                                                                                                                titles
+3457869750144824051                                                                                                                                   State and local population projections: Methodology and analysis
+5031595156857333400                                                                                                                        Methods in urban temporal and spatial behavior research in the big data era
+15525026654447301206                                                                                                                                                                            Population projections
+12378028535503569328                                                                                                     US family household momentum and dynamics: an extension and application of the ProFamy method
+17840057865385022398                                                                                                                                      Urban water demand forecasting: review of methods and models
+4612509560393359353                                                                                                                                 Recent developments in population projection methodology: A review
+4248881795726536579                                                                                                                                                                   Subnational population estimates
+1961531481231454153   \345\244\247\346\225\260\346\215\256\346\227\266\344\273\243\345\237\216\345\270\202\346\227\266\347\251\272\351\227\264\350\241\214\344\270\272\347\240\224\347\251\266\346\226\271\346\263\225
+                     degree
+3457869750144824051     143
+5031595156857333400      35
+15525026654447301206     28
+12378028535503569328     22
+17840057865385022398     37
+4612509560393359353      57
+4248881795726536579      21
+1961531481231454153      35
+[1] "Community 1 ; corpus prop 4.90168832071146"
+                                                                                                                                                       titles
+4711466512867765446  Critical behavioral assumptions in evacuation time estimate analysis for private vehicles: Examples from hurricane research and planning
+6131548441162082305                                                    Microsimulation of neighborhood evacuations in the urban\342\200\223wildland interface
+2944789018937869197                                                                                    A network flow model for lane-based evacuation routing
+7390560434462547229                                                                             Multi-objective evacuation routing in transportation networks
+16332165829702838661                     The representation and implementation of time-dependent inundation in large-scale microscopic evacuation simulations
+8034666986267919989                                                                  EMBLEM2: An empirically based large scale evacuation time estimate model
+8728263641968717367                                                    Evacuation transportation modeling: An overview of research, development, and practice
+18056288181628873978                                                   Cell-based network optimization model for staged evacuation planning under emergencies
+4689727687025938885                                               A review on travel behaviour modelling in dynamic traffic simulation models for evacuations
+                     degree
+4711466512867765446     174
+6131548441162082305     190
+2944789018937869197     343
+7390560434462547229     118
+16332165829702838661     97
+8034666986267919989      87
+8728263641968717367     157
+18056288181628873978     91
+4689727687025938885     131
+[1] "Community 31 ; corpus prop 9.25102480372403"
+                                                                                                                titles
+3647216975258379343                                                              Overview of land-use transport models
+17928749455960355096                      Integrated land use and transport modelling. Decision chains and hierarchies
+5555658576019595139   Microsimulation of urban development and location choices: Design and implementation of UrbanSim
+7827626416531423738          ILUTE: An operational prototype of a comprehensive microsimulation model of urban systems
+17564692245329390408 Current operational urban land\342\200\220use\342\200\223transport modelling frameworks: A review
+6527032551789972459                                                                      Microsimulating urban systems
+5191349362201911636                             Models of transportation and land use change: A guide to the territory
+868884453060086619                                                                                     Urban modelling
+11010204722984684524                                                The what if? Collaborative planning support system
+                     degree
+3647216975258379343     483
+17928749455960355096    342
+5555658576019595139     273
+7827626416531423738     278
+17564692245329390408    227
+6527032551789972459     172
+5191349362201911636     209
+868884453060086619      346
+11010204722984684524    164
+[1] "Community 24 ; corpus prop 2.29625512401862"
+                                                                                                                                                                                                                                                                       titles
+9281334485420372601                                                                                                                                                                             A New Set of Spatial-Interaction Models: The Theory of Competing Destinations
+16685165379568638258                                                                                                                                                                             Spatial interaction, transportation, and interregional commodity flow models
+6952993457037866605                                                                                                                                                                                                Intelligent GIS: Location decisions and strategic planning
+321283459142602532                                                                                                                                                                                                                  Interaction, evolution and chaos in space
+12228919296629695328                                                                                                                                                                                  From catastrophe to chaos: a general theory of economic discontinuities
+5080941923014576834  Entropy in Urban and Regional Modelling: Retrospect and Prospect. \345\237\216\345\270\202\345\222\214\345\214\272\345\237\237\345\273\272\346\250\241\344\270\255\347\232\204\347\206\265: \345\233\236\351\241\276\344\270\216\345\261\225\346\234\233
+7059740904410474878                                                                                                                                                                                                          Geodemographics, GIS and neighbourhood targeting
+4106625331304068990                                                                                                                                                                                                                                     GIS and public health
+13480606774574124314                                                                                                                                                                                                        Retail geography and intelligent network planning
+                     degree
+9281334485420372601     192
+16685165379568638258     41
+6952993457037866605     117
+321283459142602532       66
+12228919296629695328     51
+5080941923014576834      56
+7059740904410474878     104
+4106625331304068990     140
+13480606774574124314     66
+[1] "Community 34 ; corpus prop 4.73494059612312"
+                                                                                                                                                                                        titles
+1056591708033649134                                                                                         The European high-speed train network: predicted effects on accessibility patterns
+10597302792421413800                                                          Is transport infrastructure effective?: transport infrastructure and accessibility: impacts on the space economy
+17415991737928602947                                                                                        Accessibility in the European Union: the impact of the trans-European road network
+17925030278061544359                                                                                         Economic appraisal of European transport projects: the state-of-the-art revisited
+2153195748447615798  Location, economic potential and daily accessibility: an analysis of the accessibility impact of the high-speed line Madrid\342\200\223Barcelona\342\200\223French border
+15821774112786610021                                                                                                                            Measuring accessibility: a review and proposal
+15451741357846073460                                                                                                                                               Geography of transportation
+1786780030627166320                                                                                                                                         The geography of transport systems
+2423767819611600419                                                                                                                           Accessibility and economic development in Europe
+                     degree
+1056591708033649134     107
+10597302792421413800     76
+17415991737928602947     83
+17925030278061544359     91
+2153195748447615798     152
+15821774112786610021    106
+15451741357846073460    165
+1786780030627166320     195
+2423767819611600419     149
+[1] "Community 35 ; corpus prop 11.1269367053429"
+                                                                                                                        titles
+1513652617653313325                                                                Modelling and prediction in a complex world
+16903932630436381406                                       Urban growth pattern modeling: a case study of Wuhan city, PR China
+12423922208751770165           Agents, cells, and cities: new representational models for simulating multiscale urban dynamics
+5774506474328398085                                               Analysis of urban growth and sprawl from remote sensing data
+11217820315699561958            Environmental impacts of urban sprawl: a survey of the literature and proposed research agenda
+3967181812416297977                                                        The effects of urban patterns on ecosystem function
+3351927862062134563                                                                                Geographic automata systems
+6511040233081610778  Integration of logistic regression, Markov chain and cellular automata models to simulate urban expansion
+11204449505879475380                               The spatiotemporal form of urban growth: measurement, analysis and modeling
+                     degree
+1513652617653313325     155
+16903932630436381406    291
+12423922208751770165    163
+5774506474328398085     205
+11217820315699561958    280
+3967181812416297977     258
+3351927862062134563     137
+6511040233081610778     170
+11204449505879475380    250
+[1] "Community 2 ; corpus prop 5.00590564857917"
+                                                                                                                                            titles
+12063398839236639504                                                                                            Pedestrian behavior at bottlenecks
+1185268544209442606                                              Cellular automata microsimulation for modeling bi-directional pedestrian walkways
+4028928506587413325                                                                                Moving agent pedestrians through space and time
+2318807470866601425                                                                                                       The flow of human crowds
+4519216346148025962                                                                      Cellular automaton approach to pedestrian dynamics-theory
+4515877501967453026                                         \342\200\234So go downtown\342\200\235: simulating pedestrian movement in town centres
+7790028561875366909                                                                     Experimental study of pedestrian counterflow in a corridor
+15190667213842835140 Encoding natural movement as an agent-based system: an investigation into human pedestrian behaviour in the built environment
+11968742978802452080                                                                         Discrete choice models of pedestrian walking behavior
+                     degree
+12063398839236639504    129
+1185268544209442606     247
+4028928506587413325      59
+2318807470866601425     165
+4519216346148025962      87
+4515877501967453026      93
+7790028561875366909      63
+15190667213842835140     93
+11968742978802452080    134
+[1] "Community 21 ; corpus prop 0.878899465017717"
+                                                                                                                                            titles
+15048810716273284365                                                                   The influence of traffic flow dynamics on urban soundscapes
+3138299115566557329                                                                                    The temporal structure of urban soundscapes
+1918761021962090937  Effects of urban morphology on the traffic noise distribution through noise mapping: A comparative study between UK and China
+3258629610120171525                         Noise mapping at different stages of a freeway redevelopment project\342\200\223A case study in Brazil
+3114272100236440961                                            Urban traffic noise and the relation to urban density, form, and traffic elasticity
+5239583770955147702                                                                                                        Urban sound environment
+1850150982131394362                                                           The soundscape approach for early stage urban planning: a case study
+1753487687403467457               Modeling subjective evaluation of soundscape quality in urban open spaces: An artificial neural network approach
+4095281032618856070                                         Soundscape approach integrating noise mapping techniques: A case study in Brighton, UK
+                     degree
+15048810716273284365     68
+3138299115566557329      44
+1918761021962090937      34
+3258629610120171525      26
+3114272100236440961      39
+5239583770955147702      99
+1850150982131394362      17
+1753487687403467457      35
+4095281032618856070      17
+[1] "Community 11 ; corpus prop 10.0326547627319"
+                                                                                                                     titles
+127148309821807895                                            The influence of urban form on travel: an interpretive review
+17669077597147388834                       Design and destinations: factors influencing walking and total physical activity
+2736153646393213317                                    Growing cooler: The evidence on urban development and climate change
+8210571879280178044                                                       Travel and the built environment: a meta-analysis
+9103241408869786786                                        Built environments and mode choice: toward a normative framework
+891829837893592051                                                                    Accessibility and the journey to work
+18282087500772275822         Residential Relocation and Changes in Urban Travel: Does Neighborhood-Scale Urban Form Matter?
+540326842885352721   What affects commute mode choice: neighborhood physical structure or preferences toward neighborhoods?
+10535817253121196413                      Travel behavior in neo-traditional neighborhood developments: A case study in USA
+                     degree
+127148309821807895      309
+17669077597147388834    108
+2736153646393213317     242
+8210571879280178044     433
+9103241408869786786     216
+891829837893592051      169
+18282087500772275822    210
+540326842885352721      135
+10535817253121196413    112
+[1] "Community 36 ; corpus prop 5.75279649829778"
+                                                                                                   titles degree
+15601704195970669873               Modeling the growth of transportation networks: A comprehensive review     72
+4717128992502310138                                                             The new science of cities    416
+8890274093516407796                                         Household travel surveys: Where are we going?    117
+18009109176853561176                            Clustering daily patterns of human activities in the city     78
+6936628091347348796                                                                   Modelling transport    215
+11949896388961161325 Place\342\200\220based versus people\342\200\220based geographic information science     80
+15638064807339120117                                              Unravelling daily human mobility motifs    141
+17988599556088464411                         Scaling laws in the spatial structure of urban road networks     98
+11264190143065290682                                                         Building a science of cities     75
+[1] "Community 17 ; corpus prop 7.41679983325228"
+                                                                                                                 titles
+10051249760587743061              3.5 An improved framework for large-scale multi-agent simulations of travel behaviour
+16072861692636150054                             Agent-based demand-modeling framework for large-scale microsimulations
+5859650596411956935                                                         MATSim-T: Architecture and simulation times
+3887337517750506029  Implementation framework and development trajectory of FEATHERS activity-based simulation platform
+5703006527241625831                Travel demand modeling for multi-agent transport simulations: Algorithms and systems
+16733581446507827811       Agent-based simulation of travel demand: Structure and computational performance of MATSim-T
+15922500983146603077                                 Generating complete all-day activity plans with genetic algorithms
+9422735129377479264                                             TRANSIMS: Transportation analysis and simulation system
+5583047953070778017                                                           Microscopic traffic flow simulator VISSIM
+                     degree
+10051249760587743061    133
+16072861692636150054    171
+5859650596411956935     151
+3887337517750506029     104
+5703006527241625831      96
+16733581446507827811    119
+15922500983146603077    203
+9422735129377479264     191
+5583047953070778017      91
+[1] "Community 19 ; corpus prop 1.60147293823386"
+                                                                                                                                                                  titles
+710656495621119851                                           How far and with whom do people socialize? Empirical evidence about distance between social network members
+7639522620121266359                                                  Interplay between telecommunications and face-to-face interactions: A study using mobile phone data
+4331496097741720707                                          Social influences on household location, mobility and activity choice in integrated micro-simulation models
+14737295492902451216 An analysis of the dynamics of activity and travel needs in response to social network evolution and life-cycle events: a structural equation model
+14857269325212945122                                                                                                  A dynamic understanding of travel demand: A sketch
+8988118479807361507                                                                   Urban rhythms and travel behaviour: spatial and temporal phenomena of daily travel
+14645237475243891169                                                 Social networks, social interactions, and activity-travel behavior: a framework for microsimulation
+3490165270327471278                                                      Collecting social network data to study social activity-travel behavior: an egocentric approach
+9803390289492034726                                                                     Exploring the propensity to perform social activities: a social network approach
+                     degree
+710656495621119851       64
+7639522620121266359      33
+4331496097741720707      32
+14737295492902451216     30
+14857269325212945122     30
+8988118479807361507      45
+14645237475243891169     97
+3490165270327471278      97
+9803390289492034726      88
+[1] "Community 25 ; corpus prop 4.70020148683388"
+                                                                                                                                            titles
+9235594607256571199                                                          SimBritain: a spatial microsimulation approach to population dynamics
+8109367176267300654  Creating realistic synthetic populations at varying spatial scales: A comparative critique of population synthesis techniques
+3610042340457219563                                                                                        Creating synthetic baseline populations
+15266930903312900204                                                                                         Introduction to agent-based modelling
+10745477817654824495                                                                      Population synthesis for microsimulating travel behavior
+2999228877729049861                                              Improving the synthetic data generation process in spatial microsimulation models
+9558724168185744376                                An evaluation of the combinatorial optimisation approach to the creation of synthetic microdata
+12946975322843735705       A methodology to match distributions of both household and person attributes in the generation of synthetic populations
+7411626142465077755                                                                                     Agent-based models of geographical systems
+                     degree
+9235594607256571199     121
+8109367176267300654      98
+3610042340457219563     371
+15266930903312900204    120
+10745477817654824495    111
+2999228877729049861      69
+9558724168185744376      97
+12946975322843735705     83
+7411626142465077755     188
+[1] "Community 4 ; corpus prop 3.09525463767109"
+                                                                                                                                  titles
+17328857189083571924                                                A micro-simulation model of shipment size and transport chain choice
+10452099301117185444                                                            Tour-based microsimulation of urban commercial movements
+11867759823425069041 Analysis of the efficiency of urban commercial vehicle tours: Data collection, methodology, and policy implications
+10883492623548493108                                                     Survey of green vehicle routing problem: past and future trends
+16233777530035316990                                              A conceptual framework for agent-based modelling of logistics services
+2877493742149701202                                                             Stakeholder reactions to urban freight policy innovation
+13366090602512733847                                    Overall impacts of off-hour delivery programs in New York City Metropolitan Area
+12204897068018277523                                   State-of-the art of freight forecast modeling: lessons learned and the road ahead
+                     degree
+17328857189083571924     89
+10452099301117185444     96
+11867759823425069041     52
+10883492623548493108     85
+16233777530035316990     66
+2877493742149701202      62
+13366090602512733847     44
+12204897068018277523     53
+[1] "Community 7 ; corpus prop 1.33050788577781"
+                                                                                                                             titles
+18427036268970108615       Transportation systems modelling as planning, organisation and management for solutions created with ITS
+17856763358417538697 Multi-agent reinforcement learning for integrated network of adaptive traffic signal controllers (MARLIN-ATSC)
+1838191501042192222                A comparative analysis of currently used microscopic and macroscopic traffic simulation software
+1348447244569510297                The application of microscopic activity based travel demand modelling in large scale simulations
+7208149392809700737                                       Generation and analysis of a large-scale urban vehicular mobility dataset
+13359079414345916395                                                                          Multi-agent transportation simulation
+17833863414294086817                                       Recent development and applications of SUMO-Simulation of Urban MObility
+10161138948492953811               Travel demand and transportation supply modelling for agglomeration without transportation model
+9034795664681730817                                     Microscopic modeling of travel-demand: Approaching the home-to-work problem
+                     degree
+18427036268970108615     16
+17856763358417538697     16
+1838191501042192222      43
+1348447244569510297      16
+7208149392809700737      66
+13359079414345916395     12
+17833863414294086817    248
+10161138948492953811     12
+9034795664681730817      11
+[1] "Community 23 ; corpus prop 0.600986590703814"
+                                                                                                                                                    titles
+13476025762651898550          The composite marginal likelihood (CML) inference approach with applications to discrete and mixed dependent variable models
+17715802828408561151                                                      Incorporating spatial dynamics and temporal dependency in land use change models
+8867795469349094455                         Carbon dioxide emissions reduction in China's transport sector: a dynamic VAR (vector autoregression) approach
+13563613083781203083                                  Differences in regional emissions in China's transport sector: determinants and reduction strategies
+15330909855765960239        A lustrum of SEA: recent research trends following the creation of the spatial econometrics association (2007\342\200\2232011)
+908710056806461683                         Transportation infrastructure impacts on firm location: the effect of a new metro line in the suburbs of Madrid
+18244510027779300839                                     The dynamic spatial multinomial probit model: analysis of land use change using parcel-level data
+17141390934095041206                                    BAYSIAN INFERENCE FOR ORDERED RESPONSE DATA WITH A DYNAMIC SPATIAL\342\200\220ORDERED PROBIT MODEL
+4489800516197078627  The maximum approximate composite marginal likelihood (MACML) estimation of multinomial probit-based unordered response choice models
+                     degree
+13476025762651898550     21
+17715802828408561151     36
+8867795469349094455      27
+13563613083781203083     17
+15330909855765960239     18
+908710056806461683       27
+18244510027779300839     21
+17141390934095041206     18
+4489800516197078627      48
+[1] "Community 8 ; corpus prop 0.375182380323768"
+                                                                                                                                               titles
+15615753733922146849                                                      A cooperative scheduling model for timetable optimization in subway systems
+6410656875544027379                                                                    A two-objective timetable optimization model in subway systems
+4197431808701833650                           Derivation of origin-destination distributions from traffic counts: Implications for freeway simulation
+5309391979114578504                                                          Passenger's flow for a train's coach and dwelling time using fuzzy logic
+6874110149203891510                       An energy-efficient scheduling approach to improve the utilization of regenerative energy for metro systems
+16058997404818571383                                                       A fuzzy logic approach to modelling the passengers' flow and dwelling time
+1765220034763837926       Metro timetable optimisation for minimising carbon emission and passenger time: a bi-objective integer programming approach
+563456563498797953    Challenges and innovative solutions in urban rail transit network operations and management: China's Guangzhou metro experience
+12348296310464106551                                           A fuzzy logic-based approach for estimation of dwelling times of panama metro stations
+                     degree
+15615753733922146849     83
+6410656875544027379      48
+4197431808701833650       5
+5309391979114578504       4
+6874110149203891510      41
+16058997404818571383      4
+1765220034763837926       2
+563456563498797953        4
+12348296310464106551      6
+[1] "Community 18 ; corpus prop 2.36920725352602"
+                                                                                                                                        titles
+6632727107040670911                                                                                     Congestion Pricing and Land Use Change
+13399190150747695277                                                                                     The economics of urban transportation
+10131048650627112435 The drawbacks and opportunities of carbon charges in metropolitan areas\342\200\224A spatial general equilibrium approach
+8660088296473642765                                                                    General equilibrium models for transportation economics
+3687815772415620705                                                                   The stability of downtown parking and traffic congestion
+2182170175896433846                                                                       The evaluation of transportation investment projects
+8265179959978466491                                                                                          Principles of transport economics
+13443597481528259571                                                                                            The myth of travel time saving
+13713533652411001141                                                                 A model for optimizing electronic toll collection systems
+                     degree
+6632727107040670911      29
+13399190150747695277    451
+10131048650627112435     25
+8660088296473642765      34
+3687815772415620705      52
+2182170175896433846      22
+8265179959978466491      82
+13443597481528259571    120
+13713533652411001141     24
+[1] "Community 3 ; corpus prop 0.61488223441951"
+                                                                                                                             titles
+15788228619685847499                                                                 Value sensitive design and information systems
+4965631981067721478                                                                                Human values, ethics, and design
+16041179802754239551      Designing for human values in an urban simulation system: Value sensitive design and participatory design
+14331548979860015278         Informing public deliberation: Value sensitive design of indicators for a large-scale urban simulation
+3709394167681381443   Value sensitive design as a pattern: Examples from informed consent in web browsers and from urban simulation
+                     degree
+15788228619685847499    174
+4965631981067721478     118
+16041179802754239551     11
+14331548979860015278     48
+3709394167681381443       2
+[1] "Community 9 ; corpus prop 1.62231640380741"
+                                                                                                                      titles
+9723979131813554113                                         Aspen-EE: an agent-based model of infrastructure interdependency
+12588786767218297094                 The state of the art in critical infrastructure protection: a framework for convergence
+12500859281573253166             Vulnerability analysis of interdependent infrastructure systems: A methodological framework
+11368678256509931382 Assessing infrastructure interdependencies: the challenge of risk analysis for complex adaptive systems
+10134402153399094910                     Review on modeling and simulation of interdependent critical infrastructure systems
+17435455487672864863                                                           ASPEN: A microsimulation model of the economy
+1552965862503646797           Dynamic functional modelling of vulnerability and interoperability of Critical Infrastructures
+11525014964270468614                                      Agent-based simulation of electricity markets: a literature review
+636665451628377151             An approach to design interface topologies across interdependent urban infrastructure systems
+                     degree
+9723979131813554113      37
+12588786767218297094     20
+12500859281573253166     43
+11368678256509931382     48
+10134402153399094910    136
+17435455487672864863    121
+1552965862503646797      31
+11525014964270468614     19
+636665451628377151       37
+[1] "Community 28 ; corpus prop 2.4247898283888"
+                                                                                                                                          titles
+3916242011605183597                                               Weighted congestion coefficient feedback in intelligent transportation systems
+16436817905674068726                     Incorporating human-factors in car-following models: a review of recent developments and research needs
+13381378110859182082         Criticism of generally accepted fundamentals and methodologies of traffic and transportation theory: A brief review
+9001259743316755508  Applications of wavelet transform for analysis of freeway traffic: bottlenecks, transient traffic, and traffic oscillations
+1235319778381219032                                                                        Traffic and related self-driven many-particle systems
+7894170259546588976                                                            Statistical physics of vehicular traffic and some related systems
+13943479036509757106                                    The impact of real-time information in a two-route scenario using agent-based simulation
+1546841211514719828                                                                                      Decision dynamics in a traffic scenario
+7407710041608433787                                                                  Dynamics of traffic flow with real-time traffic information
+                     degree
+3916242011605183597      34
+16436817905674068726     67
+13381378110859182082     71
+9001259743316755508      38
+1235319778381219032     379
+7894170259546588976     381
+13943479036509757106     73
+1546841211514719828      91
+7407710041608433787      34
+[1] "Community 26 ; corpus prop 0.958799416382964"
+                                                                                                                                                                          titles
+11926988869150349941 Individual space\342\200\223time activity-based model: a model for the simulation of airborne infectious-disease transmission by activity-bundle simulation
+1251393005386243760                                                   Individual space\342\200\223time activity-based modelling of infectious disease transmission within a city
+3646189175543184167                                                                      Spatial dynamics of the 1918 influenza pandemic in England, Wales and the United States
+3622171523182976942                  Cholera epidemic in Haiti, 2010: using a transmission model to explain spatial spread of disease and identify optimal control interventions
+17802896844240645281                                                  Analysis of CDC social control measures using an agent-based simulation of an influenza epidemic in a city
+6755699985354991365                                                            Simulation models of obesity: a review of the literature and implications for research and policy
+3694961475529263546                                                                                                                 The geography of fast food outlets: a review
+60774558814297199                                                   The effects of school closures on influenza outbreaks and pandemics: systematic review of simulation studies
+1157352911242309122                                                                        Disparities in neighborhood food environments: Implications of measurement strategies
+                     degree
+11926988869150349941     17
+1251393005386243760      21
+3646189175543184167      28
+3622171523182976942      33
+17802896844240645281     18
+6755699985354991365      36
+3694961475529263546      40
+60774558814297199        14
+1157352911242309122      28
+[1] "Community 15 ; corpus prop 0.118112971583409"
+                                                                                                              titles
+8770554218574732945                       Urban and regional transportation modeling: essays in honor of David Boyce
+3207529481834126464                          A Bayesian approach for modeling origin\342\200\223destination matrices
+4936978594641610640                   Les enqu\303\252tes sur les comportements de mobilit\303\251, et apr\303\250s?
+11209815709684734322    Contributions \303\240 la mod\303\251lisation des d\303\251placements en transport collectif
+5327509358687884035                                   Transport networks and spatial choices: A European perspective
+5237056586819076353  An improved origin-based algorithm for solving the combined distribution and assignment problem
+16567649176298421728                                     Role of travel demand models in appraisal and policy-making
+                     degree
+8770554218574732945      14
+3207529481834126464      13
+4936978594641610640       1
+11209815709684734322      1
+5327509358687884035       1
+5237056586819076353       6
+16567649176298421728      3
+[1] "Community 33 ; corpus prop 0.0590564857917043"
+                                                                                                         titles
+16984456775741003183 Landscape genetics of the Tasmanian devil: implications for spread of an infectious cancer
+11031809134554998753                                               Putting the 'landscape'in landscape genetics
+                     degree
+16984456775741003183      1
+11031809134554998753     16
+[1] "Community 12 ; corpus prop 0.350865003821302"
+                                                                                                                          titles
+17989554903113192487                                             Signal timing estimation using sample intersection travel times
+12349951284214290298                                                                      Vtl zone-aware path cloaking algorithm
+18141289879935674876                      Privacy protection method for fine-grained urban traffic modeling using mobile sensors
+17461680767112729615    Evaluation of Corridor Traffic Management and Planning Strategies That Use Microsimulation: A Case Study
+4320341672075476628                   Evaluation of privacy preserving algorithms using traffic knowledge based adversary models
+851900209304291061                    Cycle-by-cycle intersection queue length distribution estimation using sample travel times
+5140065063372116271        Real time queue length estimation for signalized intersections using travel times from mobile sensors
+16602348262547908254                 Vehicle trajectory reconstruction for signalized intersections using mobile traffic sensors
+14269002549093506096 Does traffic-related calibration of car-following models provide accurate estimations of vehicle emissions?
+                     degree
+17989554903113192487     27
+12349951284214290298      7
+18141289879935674876     15
+17461680767112729615      7
+4320341672075476628       7
+851900209304291061       13
+5140065063372116271      77
+16602348262547908254     28
+14269002549093506096      6
+[1] "Community 13 ; corpus prop 0.0660043076495519"
+                                                                                                                        titles
+12902170916073833103                       The Retirement\342\200\220Savings Puzzle Reviewed: The Role Of Housing And Bequests
+2243720034695555473                      Disability insurance and labor market exit routes of older workers in the Netherlands
+6859105902819824808                       The Retirement-Savings Puzzle Revisited: The Role of Housing as a Bequeathable Asset
+9625064544759010756               Measuring retirement savings adequacy: developing a multi-pillar approach in the Netherlands
+7634786199730548371  Changes in the Income Distribution of the D utch Elderly between 1989 and 2020: a Dynamic Microsimulation
+                     degree
+12902170916073833103      1
+2243720034695555473       1
+6859105902819824808       5
+9625064544759010756      11
+7634786199730548371       6
+[1] "Community 30 ; corpus prop 0.323073716389912"
+                                                                                                                                        titles
+11850693143749983359                           Urban structure and the labour market. Worker mobility, commuting and underemployment in cities
+10762086821899832016                                                    Commuting, migration, housing and labour markets: complex interactions
+11124857263657387059               Labour mobility between cities and metropolitan integration: The role of high speed rail commuting in Spain
+13315235353705885978                                                                      Labour-market search and urban residential structure
+5801361108714328399  Travel mobility and social participation among older people in a transit metropolis: A socio-spatial-temporal perspective
+                     degree
+11850693143749983359     95
+10762086821899832016     12
+11124857263657387059      1
+13315235353705885978      4
+5801361108714328399       1
+[1] "Community 14 ; corpus prop 0.180643368304037"
+                                                                                                                                                                                                  titles
+18034355482130761698                                                     Information and communications technologies and urban environment: Empirical analysis of the Washington, DC metropolitan region
+212840774023975529   Polycentricity and Sustainable Urban Form: An Intra-Urban Study of Accessibility, Employment and Travel Sustainability for the Strategic Planning of the London\302\240\342\200\246
+2386825720085976712                                                                                                      Urban spatial structure: An interaction between employment and built-up volumes
+5608715600530282057                                                                           Towards decentralization: Spatial changes of employment and population in Tehran Metropolitan Region, Iran
+6960832613251535716                                                                                     New information and communication technologies and the professions of town and regional planners
+16874703706777763532                                                                Measuring morphological polycentricity-A comparative analysis of urban mass concentrations using remote sensing data
+6378110245159415612                                                                         Collaborative decisionmaking for sustainable urban renewal projects: a simulation\342\200\223gaming approach
+16483923195764642513                                                                                                  Urban subcentres in German city regions: Identification, understanding, comparison
+6056617488303804353                                                                                  The typology of the American metropolis: monocentricity, polycentricity, or generalized dispersion?
+                     degree
+18034355482130761698      2
+212840774023975529        6
+2386825720085976712       8
+5608715600530282057       5
+6960832613251535716      10
+16874703706777763532      9
+6378110245159415612      20
+16483923195764642513      4
+6056617488303804353       4
+[1] "Community 29 ; corpus prop 0.0173695546446189"
+  titles degree
+1   <NA>     NA
+2   <NA>     NA
+3   <NA>     NA
+4   <NA>     NA
+5   <NA>     NA
+[1] "Community 32 ; corpus prop 0.0208434655735427"
+  titles degree
+1   <NA>     NA
+2   <NA>     NA
+3   <NA>     NA
+4   <NA>     NA
+5   <NA>     NA
+6   <NA>     NA
+[1] "Community 5 ; corpus prop 0.048634753004933"
+                                                                                                                                 titles
+14784093658695091998                                                              FORECASTING FUTURE LAND USE FOR WATERSHED ASSESSMENT1
+16824795325827542671  Assessing the impacts of environmental change on the hydrology of the Nzoia catchment, in the Lake Victoria Basin
+                     degree
+14784093658695091998     11
+16824795325827542671      6
+
+
+

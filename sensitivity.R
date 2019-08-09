@@ -91,6 +91,7 @@ res[res$kw=='all'&res$modularity==max(res$modularity[res$kw=='all']),]
 # -> hd = 3
 currentcitnw=induced_subgraph(citnw,which(V(citnw)$horizontalDepth<=3))
 exportGraph(currentcitnw,'processed/core_hdepth3.gml')
+save(currentcitnw,file='processed/core_hdepth3.RData')
 # IGRAPH a89a25b DN-- 33342 78921
 # also export filtered version without "far communities" (finance and taxes) for better viz
 set.seed(0)
@@ -101,7 +102,10 @@ show(paste0(com,' ; N=',length(which(currentv))," ; ",currentt[which(degs[curren
 }
 # remove : 4 Finance (N=2911) ; 22 taxes (N=1645) ; rest are anecdotic
 # IGRAPH 55d06a7 DN-- 28786 66603 
-export_gml(induced_subgraph(currentcitnw,which(coms$membership!=4&coms$membership!=22)),'processed/core_hdepth3_filtered.gml')
+currentcitnw=induced_subgraph(currentcitnw,which(coms$membership!=4&coms$membership!=22))
+export_gml(currentcitnw,'processed/core_hdepth3_filtered.gml')
+save(currentcitnw,file='processed/core_hdepth3_filtered.RData')
+export_csv(currentcitnw,'processed/core_hdepth3_filtered_edges.csv','processed/core_hdepth3_filtered_nodes.csv',V(currentcitnw)$horizontalDepth)
 #vcount(currentfiltered)/vcount(currentcitnw)
 
 # export a subset with targeted communities
