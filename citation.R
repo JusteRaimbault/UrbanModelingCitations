@@ -1,4 +1,4 @@
-setwd(paste0(Sys.getenv('CS_HOME'),'/Perspectivism/Models/QuantEpistemo'))
+setwd(paste0(Sys.getenv('CS_HOME'),'/UrbanDynamics/Models/QuantEpistemo'))
 
 library(dplyr)
 library(igraph)
@@ -9,7 +9,7 @@ library(ggplot2)
 source(paste0(Sys.getenv('CS_HOME'),'/Organisation/Models/Utils/R/plots.R'))
 source('functions.R')
 
-citation <- read_graph('processed/core_hdepth3_filtered.gml',format='gml')
+citation <- read_graph('processed/core.gml',format='gml')
 
 resdir <- 'results/analysis/'
 
